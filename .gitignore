@@ -27,6 +27,12 @@ Thumbs.db
 .env.*
 !.env.example
 
+# AWS / cloud credentials — NEVER commit
+*accessKeys*.csv
+*credentials*.csv
+*.pem
+aws-credentials*
+
 # Directus schema snapshot (pulled from an instance; structure only, not committed)
 backend/cms/snapshot.json
 

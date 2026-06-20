@@ -1,12 +1,12 @@
 {
-  "name": "agewell-lead-handler",
+  "name": "cmas-lead-handler",
   "version": "1.0.0",
-  "description": "Compass AgeWell — lead form handler (Lambda)",
+  "description": "Compassscribe — lead form handler (Lambda)",
   "type": "module",
   "main": "index.mjs",
   "scripts": {
-    "db:init": "cross-env DYNAMODB_ENDPOINT=http://localhost:8000 LEADS_TABLE=agewell-leads node create-local-table.mjs",
-    "dev": "cross-env DYNAMODB_ENDPOINT=http://localhost:8000 LEADS_TABLE=agewell-leads ALLOWED_ORIGIN=* AWS_ACCESS_KEY_ID=local AWS_SECRET_ACCESS_KEY=local AWS_REGION=us-east-1 node local-server.mjs"
+    "db:init": "cross-env DYNAMODB_ENDPOINT=http://localhost:8000 LEADS_TABLE=cmas-leads node create-local-table.mjs",
+    "dev": "cross-env DYNAMODB_ENDPOINT=http://localhost:8000 LEADS_TABLE=cmas-leads ALLOWED_ORIGIN=* AWS_ACCESS_KEY_ID=local AWS_SECRET_ACCESS_KEY=local AWS_REGION=us-east-1 node local-server.mjs"
   },
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.726.0",
