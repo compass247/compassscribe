@@ -8,7 +8,7 @@ name: Deploy
 #   Secrets:   AWS_DEPLOY_ROLE_ARN, CLOUDFLARE_API_TOKEN, TF_STATE_BUCKET
 #   Variables: AWS_REGION, ECR_REPOSITORY, ECS_CLUSTER, ECS_SERVICE,
 #              LEAD_LAMBDA_NAME, API_BASE, CLOUDFLARE_ZONE_ID,
-#              CMS_BASE (https://cms.compassagewell.com), SITE_URL
+#              CMS_BASE (https://cms.compassscribe.com), SITE_URL
 #
 # NOTE (Phase 5 cutover): the web container is now Next.js (port 3000). At
 # cutover, update the web task definition's containerPort 80->3000, the ALB
@@ -105,7 +105,7 @@ jobs:
           docker build \
             --build-arg NEXT_PUBLIC_API_BASE="$API_BASE" \
             --build-arg NEXT_PUBLIC_CMS_BASE="$CMS_BASE" \
-            --build-arg NEXT_PUBLIC_SITE_URL="${SITE_URL:-https://compassagewell.com}" \
+            --build-arg NEXT_PUBLIC_SITE_URL="${SITE_URL:-https://compassscribe.com}" \
             -t "$IMAGE" -t "$REGISTRY/$REPO:latest" .
           docker push "$IMAGE"
           docker push "$REGISTRY/$REPO:latest"

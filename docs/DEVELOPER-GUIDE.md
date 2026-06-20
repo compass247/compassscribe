@@ -5,7 +5,7 @@ launch: cách code, fix bug, test, và deploy. Đọc kèm [README.md](../README
 [CLAUDE.md](../CLAUDE.md) (quy ước).
 
 > **TL;DR**: Sửa code trong `src/` → `npm run dev` xem thử → `npm run build && npm run lint`
-> phải xanh → `git push origin main` → tự động deploy ~3-4 phút → kiểm `https://compassagewell.com`.
+> phải xanh → `git push origin main` → tự động deploy ~3-4 phút → kiểm `https://compassscribe.com`.
 
 ---
 
@@ -146,7 +146,7 @@ npm run db:down        # dừng & xoá container DynamoDB Local (data inMemory s
 Nếu lười dựng backend local, trỏ thẳng form vào API thật:
 ```powershell
 # .env.local
-VITE_API_BASE=https://api.compassagewell.com
+VITE_API_BASE=https://api.compassscribe.com
 ```
 Submit trên `npm run dev` → lead vào **DynamoDB production**. Gõ tên "TEST" để dễ xoá:
 ```powershell
@@ -277,7 +277,7 @@ Target unhealthy thường do `/healthz` không trả 200 → kiểm `nginx.conf
 2. Dev tạo branch `feature/...` hoặc sửa thẳng nếu nhỏ.
 3. Sửa code → test local (mục 4) → push.
 4. Với thay đổi lớn: tạo PR, CI xanh, review, merge.
-5. Deploy tự động → gửi link `https://compassagewell.com` cho BD review.
+5. Deploy tự động → gửi link `https://compassscribe.com` cho BD review.
 6. BD duyệt / feedback → lặp lại.
 
 ### Nội dung là data, không phải code
@@ -296,8 +296,8 @@ Có thể giao việc này cho người không chuyên dev (chỉ cần cẩn th
 | ECR repo | `agewell-web` |
 | Lambda | `agewell-lead-handler` |
 | DynamoDB | `agewell-leads` (PK: `leadId`) |
-| Domain | compassagewell.com (Cloudflare, DNS-only) |
-| API | https://api.compassagewell.com/api/lead |
+| Domain | compassscribe.com (Cloudflare, DNS-only) |
+| API | https://api.compassscribe.com/api/lead |
 | Terraform state | S3 `agewell-tfstate-381492229787` + lock `agewell-tf-lock` |
 
 Xem lead đã thu:

@@ -58,7 +58,7 @@ The original Claude.ai design prototype is kept in `BD_Requirements/` for refere
 2. **Configure GitHub repo settings**:
    - Secrets: `AWS_DEPLOY_ROLE_ARN`, `CLOUDFLARE_API_TOKEN`, `TF_STATE_BUCKET`
    - Variables: `AWS_REGION`, `ECR_REPOSITORY`, `ECS_CLUSTER`, `ECS_SERVICE`,
-     `LEAD_LAMBDA_NAME`, `API_BASE` (`https://api.compassagewell.com`), `CLOUDFLARE_ZONE_ID`
+     `LEAD_LAMBDA_NAME`, `API_BASE` (`https://api.compassscribe.com`), `CLOUDFLARE_ZONE_ID`
 3. **Push to `main`** → `deploy.yml` builds the image, pushes to ECR, rolls out ECS,
    and updates the Lambda. `ci.yml` lints + builds on every PR. `infra.yml` is manual
    (`workflow_dispatch`) for Terraform plan/apply.

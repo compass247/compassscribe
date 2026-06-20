@@ -27,7 +27,7 @@ terraform {
   # Remote state. Create the S3 bucket + DynamoDB lock table once (see infra/README.md),
   # then `terraform init`. Values are supplied via backend config or -backend-config.
   backend "s3" {
-    key     = "agewell/terraform.tfstate"
+    key     = "cmas/terraform.tfstate"
     encrypt = true
     # bucket / region / dynamodb_table provided via -backend-config or backend.hcl
   }
@@ -37,7 +37,7 @@ provider "aws" {
   region = var.aws_region
   default_tags {
     tags = {
-      Project   = "agewell"
+      Project   = "cmas"
       ManagedBy = "terraform"
     }
   }

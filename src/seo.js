@@ -5,7 +5,7 @@
    ============================================================ */
 import { AGEWELL_CONTENT } from "./content-data.js";
 
-export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://compassagewell.com";
+export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://compassscribe.com";
 
 export const OG_LOCALE = { vi: "vi_VN", en: "en_US" };
 

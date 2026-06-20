@@ -13,14 +13,14 @@
    overwrites the team page once it has content.
 
    Usage (production):
-     DIRECTUS_URL=https://cms.compassagewell.com \
+     DIRECTUS_URL=https://cms.compassscribe.com \
      DIRECTUS_TOKEN=<admin-static-token> \
      REVALIDATE_SECRET=<secret> \
        node backend/cms/setup-team-page.mjs
 
    Or log in with email/password instead of a token:
-     DIRECTUS_URL=https://cms.compassagewell.com \
-     DIRECTUS_EMAIL=admin@compassagewell.com \
+     DIRECTUS_URL=https://cms.compassscribe.com \
+     DIRECTUS_EMAIL=admin@compassscribe.com \
      DIRECTUS_PASSWORD=<password> \
      REVALIDATE_SECRET=<secret> \
        node backend/cms/setup-team-page.mjs
@@ -29,12 +29,12 @@
      /api/revalidate route. Get it from AWS Secrets Manager (infra/cms-secrets.tf)
      or copy it from the existing "posts" flow. If omitted, step 3 is skipped
      (re-run later with the secret to add the webhook — step 3 is idempotent).
-   - SITE_URL (optional, default https://compassagewell.com) is the webhook target.
+   - SITE_URL (optional, default https://compassscribe.com) is the webhook target.
    ============================================================ */
 import { AGEWELL_CONTENT } from "../../src/content-data.js";
 
 const DIRECTUS_URL = (process.env.DIRECTUS_URL || "http://localhost:8055").replace(/\/$/, "");
-const SITE_URL = (process.env.SITE_URL || "https://compassagewell.com").replace(/\/$/, "");
+const SITE_URL = (process.env.SITE_URL || "https://compassscribe.com").replace(/\/$/, "");
 const REVALIDATE_SECRET = process.env.REVALIDATE_SECRET || "";
 const SLUG = "team";
 
@@ -363,7 +363,7 @@ async function main() {
   await setupSchema();
   await seedTeamPage();
   await setupFlow();
-  console.log("\n✓ Done. Open https://compassagewell.com/vi/team and /en/team.");
+  console.log("\n✓ Done. Open https://compassscribe.com/vi/team and /en/team.");
   console.log("  Edit content in Studio → Content → Pages → team.");
 }
 

@@ -2,19 +2,19 @@
 # The Cloudflare API token can also be supplied via env: TF_VAR_cloudflare_api_token
 
 aws_region    = "us-east-1"
-domain        = "compassagewell.com"
-api_subdomain = "api.compassagewell.com"
+domain        = "compassscribe.com"
+api_subdomain = "api.compassscribe.com"
 
-# Cloudflare zone for compassagewell.com (Overview tab → Zone ID)
+# Cloudflare zone for compassscribe.com (Overview tab → Zone ID)
 cloudflare_zone_id   = "REPLACE_WITH_ZONE_ID"
 cloudflare_api_token = "REPLACE_WITH_TOKEN" # prefer TF_VAR_cloudflare_api_token instead
 
 # SES lead notifications (leave empty to disable email; verify the sender in SES first)
-ses_from = "no-reply@compassagewell.com"
-ses_to   = "leads@compassagewell.com"
+ses_from = "no-reply@compassscribe.com"
+ses_to   = "leads@compassscribe.com"
 
-# GitHub repo for the OIDC deploy role trust policy
-github_repo = "compass247/Agewell"
+# GitHub repo for the OIDC deploy role trust policy (owner/name)
+github_repo = "REPLACE_WITH_OWNER/compassscribe"
 
 # CI passes the real image tag; leave default for the first bootstrap apply.
 # container_image = ""

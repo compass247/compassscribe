@@ -8,7 +8,7 @@ Bạn sẽ có 2 thứ chạy ở máy:
 - **Directus local** (Docker) ở `http://localhost:8055` — bản sao cấu trúc của prod.
 - **Next.js local** ở `http://localhost:3000` — website đọc từ Directus local.
 
-Production (`cms.compassagewell.com`, `compassagewell.com`) **không bị đụng tới**
+Production (`cms.compassscribe.com`, `compassscribe.com`) **không bị đụng tới**
 trong suốt quá trình test.
 
 ---
@@ -35,8 +35,8 @@ npm run cms:up
 Bước này copy **cấu trúc** (collection/field/quan hệ) từ prod, KHÔNG copy nội
 dung. Cần token/đăng nhập admin **production**:
 ```powershell
-$env:SRC_URL="https://cms.compassagewell.com"
-$env:SRC_EMAIL="admin@compassagewell.com"
+$env:SRC_URL="https://cms.compassscribe.com"
+$env:SRC_EMAIL="admin@compassscribe.com"
 $env:SRC_PASSWORD="<mat-khau-prod>"
 npm run cms:snapshot:prod
 ```
@@ -46,7 +46,7 @@ npm run cms:snapshot:prod
 Cần đăng nhập admin **local** (trong `backend/cms/.env`):
 ```powershell
 $env:DST_URL="http://localhost:8055"
-$env:DST_EMAIL="admin@compassagewell.com"
+$env:DST_EMAIL="admin@compassscribe.com"
 $env:DST_PASSWORD="<mat-khau-local trong backend/cms/.env>"
 npm run cms:apply:local
 ```
@@ -59,7 +59,7 @@ và các quan hệ ảnh).
 ### Bước 4 — Tạo nội dung mẫu ở local
 ```powershell
 $env:DIRECTUS_URL="http://localhost:8055"
-$env:DIRECTUS_EMAIL="admin@compassagewell.com"
+$env:DIRECTUS_EMAIL="admin@compassscribe.com"
 $env:DIRECTUS_PASSWORD="<mat-khau-local>"
 npm run cms:seed:local
 ```

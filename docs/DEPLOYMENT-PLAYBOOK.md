@@ -15,13 +15,13 @@ Fargate → trỏ domain qua Cloudflare → HTTPS → live.
 ```
                                     ┌─────────────────────────────────────┐
    Cloudflare DNS                   │              AWS (us-east-1)         │
-   compassagewell.com  ──CNAME──►   │   ┌────────┐    ┌──────────────┐     │
+   compassscribe.com  ──CNAME──►   │   ┌────────┐    ┌──────────────┐     │
    www                              │   │  ALB   │───►│ ECS Fargate  │     │
                                     │   │ :443   │    │ nginx static │     │
                                     │   │ (ACM)  │    │ (Vite dist)  │     │
                                     │   └────────┘    └──────────────┘     │
                                     │        ▲              ▲ image        │
-   api.compassagewell.com ─CNAME─►  │   ┌──────────┐    ┌───────┐          │
+   api.compassscribe.com ─CNAME─►  │   ┌──────────┐    ┌───────┐          │
                                     │   │ API GW   │───►│Lambda │──► DynamoDB
                                     │   │ /api/lead│    │ lead  │──► SES    │
                                     │   └──────────┘    └───────┘          │
@@ -198,7 +198,7 @@ gh variable set ECR_REPOSITORY     --repo $REPO --body "agewell-web"
 gh variable set ECS_CLUSTER        --repo $REPO --body "agewell"
 gh variable set ECS_SERVICE        --repo $REPO --body "agewell-web"
 gh variable set LEAD_LAMBDA_NAME   --repo $REPO --body "agewell-lead-handler"
-gh variable set API_BASE           --repo $REPO --body "https://api.compassagewell.com"
+gh variable set API_BASE           --repo $REPO --body "https://api.compassscribe.com"
 gh variable set CLOUDFLARE_ZONE_ID --repo $REPO --body "<zone-id>"
 ```
 > `CLOUDFLARE_API_TOKEN` chỉ cần nếu chạy `infra.yml` trên cloud. Nếu apply Terraform local thì bỏ qua.
@@ -218,10 +218,10 @@ Pipeline: build image → push ECR → render task def → ECS rolling deploy �
 # ECS healthy
 aws ecs describe-services --cluster agewell --services agewell-web --region us-east-1 --query 'services[0].{running:runningCount,desired:desiredCount}'
 # Site
-curl -s -o /dev/null -w "%{http_code}" https://compassagewell.com/         # 200
-curl -s -o /dev/null -w "%{http_code}" https://compassagewell.com/healthz  # 200
+curl -s -o /dev/null -w "%{http_code}" https://compassscribe.com/         # 200
+curl -s -o /dev/null -w "%{http_code}" https://compassscribe.com/healthz  # 200
 # Form API
-curl -X POST https://api.compassagewell.com/api/lead -H "Content-Type: application/json" -d '{"name":"Test","phone":"408-555-1234","lang":"vi","source":"smoke"}'
+curl -X POST https://api.compassscribe.com/api/lead -H "Content-Type: application/json" -d '{"name":"Test","phone":"408-555-1234","lang":"vi","source":"smoke"}'
 # → {"ok":true,...}; kiểm DynamoDB: aws dynamodb scan --table-name agewell-leads --region us-east-1 --query Count
 ```
 

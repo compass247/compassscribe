@@ -103,7 +103,7 @@ whole thing — content model, the seeded page, and the revalidate webhook — w
 one idempotent script (no Studio clicking required):
 
 ```bash
-DIRECTUS_URL=https://cms.compassagewell.com \
+DIRECTUS_URL=https://cms.compassscribe.com \
 DIRECTUS_TOKEN=<admin-static-token> \      # or DIRECTUS_EMAIL + DIRECTUS_PASSWORD
 REVALIDATE_SECRET=<secret> \               # from AWS Secrets Manager; omit to skip the webhook
   node backend/cms/setup-team-page.mjs
@@ -120,7 +120,7 @@ Same one-shot approach for the blog. Creates `posts` + `posts_translations`,
 grants Public read, seeds one sample post, and adds a "Revalidate posts" flow:
 
 ```bash
-DIRECTUS_URL=https://cms.compassagewell.com \
+DIRECTUS_URL=https://cms.compassscribe.com \
 DIRECTUS_TOKEN=<admin-static-token> \      # or DIRECTUS_EMAIL + DIRECTUS_PASSWORD
 REVALIDATE_SECRET=<secret> \
   node backend/cms/setup-blog.mjs
@@ -139,7 +139,7 @@ seconds — no GitHub Actions rebuild.
 Configure the Flow (Settings → Flows → Create):
 1. Trigger: **Event Hook**, scope `items.create` + `items.update` +
    `items.delete` on `posts` (and `homepage`).
-2. Operation: **Webhook**, `POST https://compassagewell.com/api/revalidate?secret=<REVALIDATE_SECRET>`,
+2. Operation: **Webhook**, `POST https://compassscribe.com/api/revalidate?secret=<REVALIDATE_SECRET>`,
    body `{ "collection": "{{$trigger.collection}}", "slugs": ["{{$trigger.payload.slug}}"] }`.
 
 ## Lead dashboard (service token)

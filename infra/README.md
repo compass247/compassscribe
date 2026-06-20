@@ -3,7 +3,7 @@
 Provisions the full AWS + Cloudflare stack for Compass AgeWell:
 
 - **Frontend**: ECR + ECS Fargate (nginx static) behind an ALB with ACM HTTPS
-- **Backend**: DynamoDB + Lambda + HTTP API Gateway (`api.compassagewell.com`) + SES
+- **Backend**: DynamoDB + Lambda + HTTP API Gateway (`api.compassscribe.com`) + SES
 - **DNS**: Cloudflare records for apex, `www`, `api`, and ACM validation
 - **CI/CD identity**: GitHub Actions OIDC deploy role
 
@@ -30,10 +30,10 @@ aws dynamodb create-table \
 
 ## Prerequisites
 
-1. **Cloudflare**: a zone for `compassagewell.com`. Note the **Zone ID** (Overview tab)
+1. **Cloudflare**: a zone for `compassscribe.com`. Note the **Zone ID** (Overview tab)
    and create an **API token** with `Zone:DNS:Edit` for the zone.
 2. **SES** (optional, for lead emails): verify the sender identity (e.g.
-   `no-reply@compassagewell.com`) and, if you'll email unverified recipients,
+   `no-reply@compassscribe.com`) and, if you'll email unverified recipients,
    request production access.
 3. Copy `terraform.tfvars.example` → `terraform.tfvars` and fill it in. Prefer
    passing the Cloudflare token via `TF_VAR_cloudflare_api_token` rather than the file.

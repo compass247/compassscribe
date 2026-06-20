@@ -12,7 +12,7 @@
      REVALIDATE_SECRET  = local-revalidate-secret  (match .env.local)
 
    You still provide the local admin login:
-     DIRECTUS_EMAIL=admin@compassagewell.com \
+     DIRECTUS_EMAIL=admin@compassscribe.com \
      DIRECTUS_PASSWORD=<local-pw> \
        npm run cms:seed:local
    (or DIRECTUS_TOKEN=<local-token>)

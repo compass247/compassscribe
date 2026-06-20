@@ -1,6 +1,6 @@
 /* ============================================================
    Lead backend — DynamoDB table, Lambda handler, HTTP API
-   Gateway with a custom domain (api.compassagewell.com).
+   Gateway with a custom domain (api.compassscribe.com).
    ============================================================ */
 data "aws_caller_identity" "current" {}
 
@@ -210,7 +210,7 @@ resource "aws_apigatewayv2_api_mapping" "api" {
   stage       = aws_apigatewayv2_stage.default.id
 }
 
-# Cloudflare CNAME: api.compassagewell.com -> API Gateway regional endpoint.
+# Cloudflare CNAME: api.compassscribe.com -> API Gateway regional endpoint.
 resource "cloudflare_record" "api" {
   zone_id         = var.cloudflare_zone_id
   name            = var.api_subdomain

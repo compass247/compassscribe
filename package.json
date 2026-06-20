@@ -1,8 +1,8 @@
 {
-  "name": "agewell-web",
+  "name": "cmas-web",
   "private": true,
   "version": "2.0.0",
-  "description": "Compass AgeWell — website (Next.js + Directus CMS)",
+  "description": "Compassscribe — website (Next.js + Directus CMS)",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

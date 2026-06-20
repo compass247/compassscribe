@@ -14,7 +14,7 @@ import { SESv2Client, SendEmailCommand } from "@aws-sdk/client-sesv2";
 const REGION = process.env.AWS_REGION || "us-east-1";
 const TABLE = process.env.LEADS_TABLE;
 const ALLOWED_ORIGIN = process.env.ALLOWED_ORIGIN || "*";
-const SES_FROM = process.env.SES_FROM;          // verified sender, e.g. "no-reply@compassagewell.com"
+const SES_FROM = process.env.SES_FROM;          // verified sender, e.g. "no-reply@compassscribe.com"
 const SES_TO = process.env.SES_TO;              // BD inbox; comma-separated allowed
 
 // DYNAMODB_ENDPOINT lets local dev point at DynamoDB Local (http://localhost:8000).

@@ -14,7 +14,7 @@ const nextConfig = {
     // Directus media is served from the CMS host (and/or S3/CloudFront later).
     // Allow the CMS origin so next/image can optimize remote uploads.
     remotePatterns: [
-      { protocol: "https", hostname: "cms.compassagewell.com" },
+      { protocol: "https", hostname: "cms.compassscribe.com" },
     ],
   },
 };

@@ -6,7 +6,7 @@
 #
 # Start:  docker compose -f backend/cms/docker-compose.cms.yml up -d
 # Stop:   docker compose -f backend/cms/docker-compose.cms.yml down
-# Admin:  http://localhost:8055   (login: admin@compassagewell.com / see .env)
+# Admin:  http://localhost:8055   (login: admin@compassscribe.com / see .env)
 # Reset:  docker compose -f backend/cms/docker-compose.cms.yml down -v   (wipes DB)
 #
 # Copy backend/cms/.env.example -> backend/cms/.env before first run.
@@ -56,7 +56,7 @@ services:
       DB_PASSWORD: ${DB_PASSWORD:-directus}
 
       # --- first-run admin user (bootstrap; change password after first login) ---
-      ADMIN_EMAIL: ${ADMIN_EMAIL:-admin@compassagewell.com}
+      ADMIN_EMAIL: ${ADMIN_EMAIL:-admin@compassscribe.com}
       ADMIN_PASSWORD: ${ADMIN_PASSWORD:-changeme-locally}
 
       # --- public URL + CORS for the Next.js frontend ---

@@ -15,7 +15,7 @@
      3. Create a "Revalidate team_members" Flow webhook (publish = live).
 
    Usage (production):
-     DIRECTUS_URL=https://cms.compassagewell.com \
+     DIRECTUS_URL=https://cms.compassscribe.com \
      DIRECTUS_TOKEN=<admin-static-token> \      # or DIRECTUS_EMAIL + DIRECTUS_PASSWORD
      REVALIDATE_SECRET=<secret> \
        node backend/cms/setup-team-members.mjs
@@ -25,7 +25,7 @@
 import { AGEWELL_CONTENT } from "../../src/content-data.js";
 
 const DIRECTUS_URL = (process.env.DIRECTUS_URL || "http://localhost:8055").replace(/\/$/, "");
-const SITE_URL = (process.env.SITE_URL || "https://compassagewell.com").replace(/\/$/, "");
+const SITE_URL = (process.env.SITE_URL || "https://compassscribe.com").replace(/\/$/, "");
 const REVALIDATE_SECRET = process.env.REVALIDATE_SECRET || "";
 
 let TOKEN = process.env.DIRECTUS_TOKEN || "";
@@ -299,7 +299,7 @@ async function main() {
   await setupSchema();
   await seedMembers();
   await setupFlow();
-  console.log("\n✓ Done. Open https://compassagewell.com/vi/team and /en/team.");
+  console.log("\n✓ Done. Open https://compassscribe.com/vi/team and /en/team.");
   console.log("  Edit members in Studio → Content → Team Members (upload photos there).");
 }
 

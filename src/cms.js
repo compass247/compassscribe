@@ -3,7 +3,7 @@
    Reads published content (blog posts, homepage) from the self-hosted
    Directus instance. Mirrors the style of src/api.js.
 
-   CMS_BASE points at the Directus origin (e.g. https://cms.compassagewell.com).
+   CMS_BASE points at the Directus origin (e.g. https://cms.compassscribe.com).
    Reads are unauthenticated (Directus "Public" role grants read on published
    content only). Used both at request time (Server Components) and by the
    build-time sitemap generator.

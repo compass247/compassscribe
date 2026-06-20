@@ -14,19 +14,19 @@
    slug once it has content.
 
    Usage (production):
-     DIRECTUS_URL=https://cms.compassagewell.com \
+     DIRECTUS_URL=https://cms.compassscribe.com \
      DIRECTUS_TOKEN=<admin-static-token> \      # or DIRECTUS_EMAIL + DIRECTUS_PASSWORD
      REVALIDATE_SECRET=<secret> \
        node backend/cms/setup-blog.mjs
 
    - REVALIDATE_SECRET: from AWS Secrets Manager (infra/cms-secrets.tf) or copy
      from another flow. Omit to skip step 3 (re-run later to add the webhook).
-   - SITE_URL (optional, default https://compassagewell.com) is the webhook target.
+   - SITE_URL (optional, default https://compassscribe.com) is the webhook target.
    - RESET=1 drops the (empty) posts collections first — recovery only, never
      when real posts exist.
    ============================================================ */
 const DIRECTUS_URL = (process.env.DIRECTUS_URL || "http://localhost:8055").replace(/\/$/, "");
-const SITE_URL = (process.env.SITE_URL || "https://compassagewell.com").replace(/\/$/, "");
+const SITE_URL = (process.env.SITE_URL || "https://compassscribe.com").replace(/\/$/, "");
 const REVALIDATE_SECRET = process.env.REVALIDATE_SECRET || "";
 const SAMPLE_SLUG = "chao-mung";
 
@@ -337,7 +337,7 @@ async function main() {
   await setupSchema();
   await seedSamplePost();
   await setupFlow();
-  console.log("\n✓ Done. Open https://compassagewell.com/vi/blog and /en/blog.");
+  console.log("\n✓ Done. Open https://compassscribe.com/vi/blog and /en/blog.");
   console.log("  Edit posts in Studio → Content → Posts.");
 }
 

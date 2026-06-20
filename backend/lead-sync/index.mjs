@@ -12,7 +12,7 @@
    Triggered by DynamoDB Streams (NEW_IMAGE). Idempotent upsert keyed by leadId.
 
    Env:
-     DIRECTUS_URL    - e.g. https://cms.compassagewell.com
+     DIRECTUS_URL    - e.g. https://cms.compassscribe.com
      DIRECTUS_TOKEN  - static token for a service account with create/update
                        rights on the `leads` collection (from Secrets Manager).
    ============================================================ */

@@ -7,19 +7,19 @@ variable "aws_region" {
 variable "project" {
   description = "Project name prefix for resources."
   type        = string
-  default     = "agewell"
+  default     = "cmas"
 }
 
 variable "domain" {
   description = "Apex domain served by the site."
   type        = string
-  default     = "compassagewell.com"
+  default     = "compassscribe.com"
 }
 
 variable "api_subdomain" {
   description = "Subdomain for the lead API (API Gateway custom domain)."
   type        = string
-  default     = "api.compassagewell.com"
+  default     = "api.compassscribe.com"
 }
 
 variable "cloudflare_zone_id" {
@@ -64,7 +64,7 @@ variable "task_memory" {
 }
 
 variable "ses_from" {
-  description = "Verified SES sender address for lead notifications (e.g. no-reply@compassagewell.com). Empty disables email."
+  description = "Verified SES sender address for lead notifications (e.g. no-reply@compassscribe.com). Empty disables email."
   type        = string
   default     = ""
 }
@@ -76,9 +76,9 @@ variable "ses_to" {
 }
 
 variable "github_repo" {
-  description = "GitHub repo in owner/name form, used to scope the OIDC deploy role trust policy."
+  description = "GitHub repo in owner/name form, used to scope the OIDC deploy role trust policy. Set in terraform.tfvars."
   type        = string
-  default     = "compass247/Agewell"
+  default     = ""
 }
 
 /* ------------------------------------------------------------
@@ -90,7 +90,7 @@ variable "github_repo" {
 variable "cms_subdomain" {
   description = "Subdomain for the Directus admin (host-based routing on the existing ALB)."
   type        = string
-  default     = "cms.compassagewell.com"
+  default     = "cms.compassscribe.com"
 }
 
 variable "cms_instance_type" {
@@ -114,7 +114,7 @@ variable "postgres_image" {
 variable "cms_admin_email" {
   description = "Bootstrap Directus admin email (first boot only; change password after)."
   type        = string
-  default     = "admin@compassagewell.com"
+  default     = "admin@compassscribe.com"
 }
 
 variable "cms_ssh_cidr" {

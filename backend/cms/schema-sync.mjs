@@ -7,7 +7,7 @@
    Two steps, run separately:
 
    1) Snapshot the source (e.g. production) to a file:
-        SRC_URL=https://cms.compassagewell.com \
+        SRC_URL=https://cms.compassscribe.com \
         SRC_TOKEN=<admin-token> \            # or SRC_EMAIL + SRC_PASSWORD
           node backend/cms/schema-sync.mjs snapshot
       → writes backend/cms/snapshot.json (gitignored).
@@ -71,7 +71,7 @@ async function call(url, token, path, method = "GET", body) {
 }
 
 async function snapshot() {
-  const url = (process.env.SRC_URL || "https://cms.compassagewell.com").replace(/\/$/, "");
+  const url = (process.env.SRC_URL || "https://cms.compassscribe.com").replace(/\/$/, "");
   const token = await getToken("SRC");
   console.log(`Snapshotting schema from ${url} …`);
   const snap = await call(url, token, "/schema/snapshot", "GET");

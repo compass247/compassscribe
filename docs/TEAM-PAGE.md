@@ -18,7 +18,7 @@ Script **idempotent**: chạy lại nhiều lần không sao, **không ghi đè*
 trang khi bạn đã sửa.
 
 ### Cần chuẩn bị
-- **URL CMS**: `https://cms.compassagewell.com`
+- **URL CMS**: `https://cms.compassscribe.com`
 - **Đăng nhập admin**: một trong hai
   - Static token: Studio → ảnh đại diện (góc dưới-trái) → hồ sơ user → ô **Token** → tạo → lưu.
   - Hoặc dùng thẳng **email + mật khẩu** admin (script tự lấy token).
@@ -31,7 +31,7 @@ trang khi bạn đã sửa.
 
 Cách A — dùng token:
 ```bash
-DIRECTUS_URL=https://cms.compassagewell.com \
+DIRECTUS_URL=https://cms.compassscribe.com \
 DIRECTUS_TOKEN=<static-token-admin> \
 REVALIDATE_SECRET=<secret> \
   node backend/cms/setup-team-page.mjs
@@ -39,8 +39,8 @@ REVALIDATE_SECRET=<secret> \
 
 Cách B — dùng email/mật khẩu (script tự đăng nhập):
 ```bash
-DIRECTUS_URL=https://cms.compassagewell.com \
-DIRECTUS_EMAIL=admin@compassagewell.com \
+DIRECTUS_URL=https://cms.compassscribe.com \
+DIRECTUS_EMAIL=admin@compassscribe.com \
 DIRECTUS_PASSWORD=<mat-khau> \
 REVALIDATE_SECRET=<secret> \
   node backend/cms/setup-team-page.mjs
@@ -48,14 +48,14 @@ REVALIDATE_SECRET=<secret> \
 
 > Trên Windows PowerShell, đặt biến trước rồi chạy:
 > ```powershell
-> $env:DIRECTUS_URL="https://cms.compassagewell.com"
-> $env:DIRECTUS_EMAIL="admin@compassagewell.com"
+> $env:DIRECTUS_URL="https://cms.compassscribe.com"
+> $env:DIRECTUS_EMAIL="admin@compassscribe.com"
 > $env:DIRECTUS_PASSWORD="<mat-khau>"
 > $env:REVALIDATE_SECRET="<secret>"
 > node backend/cms/setup-team-page.mjs
 > ```
 
-Chạy xong, mở `https://compassagewell.com/vi/team` và `/en/team` để kiểm tra.
+Chạy xong, mở `https://compassscribe.com/vi/team` và `/en/team` để kiểm tra.
 
 Script tự cấp **quyền đọc Public** cho `pages` (để web đọc nội dung không cần
 đăng nhập). Nếu lần trước đã chạy bị lỗi nửa chừng (sai cấu trúc), chạy lại
@@ -68,7 +68,7 @@ $env:RESET="1"; node backend/cms/setup-team-page.mjs; Remove-Item Env:\RESET
 
 ## Bước 2 — Biên tập nội dung (làm bất cứ lúc nào)
 
-1. Vào `https://cms.compassagewell.com`, đăng nhập.
+1. Vào `https://cms.compassscribe.com`, đăng nhập.
 2. Menu trái → **Content** → **Pages** → mở mục **team**.
 3. Sửa **Tiêu đề** và **Nội dung** ở cả 2 tab ngôn ngữ (Tiếng Việt / English).
 4. Bấm **Save**.
@@ -87,8 +87,8 @@ Trang Team gồm **2 phần**:
 
 ### Thiết lập (một lần) — chạy script
 ```powershell
-$env:DIRECTUS_URL="https://cms.compassagewell.com"
-$env:DIRECTUS_EMAIL="admin@compassagewell.com"
+$env:DIRECTUS_URL="https://cms.compassscribe.com"
+$env:DIRECTUS_EMAIL="admin@compassscribe.com"
 $env:DIRECTUS_PASSWORD="<mat-khau>"
 $env:REVALIDATE_SECRET="<secret>"
 node backend/cms/setup-team-members.mjs

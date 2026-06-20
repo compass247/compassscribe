@@ -29,7 +29,7 @@ npm run preview  # serve built dist/
 - **Bilingual content** is data-driven in `src/content-data.js` (`vi` / `en`). Language
   state persists in `localStorage` under `agewell-lang`. No i18n library.
 - The **lead form** (`src/sections/sections-b.jsx` → `src/api.js`) POSTs to `/api/lead`.
-  `VITE_API_BASE` (baked at build time) points it at `https://api.compassagewell.com` in
+  `VITE_API_BASE` (baked at build time) points it at `https://api.compassscribe.com` in
   production; empty = same-origin. A hidden honeypot field (`company`) blocks bots.
 - **Assets** are static under `public/assets/` and referenced as `/assets/...`.
 

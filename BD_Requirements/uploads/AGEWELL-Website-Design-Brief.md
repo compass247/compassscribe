@@ -11,7 +11,7 @@
 | Dự án | Website Compass AgeWell |
 | Trang build trước | Trang Chủ (/) — single-page scroll, mobile-first |
 | Ngôn ngữ | Tiếng Việt (chính), có toggle English |
-| Tên miền | compassagewell.com |
+| Tên miền | compassscribe.com |
 | Đối tượng | Người Việt 65+ dùng Medicare Original tại Mỹ + người thân |
 | Text sử dụng | Content Mapping L2 đã duyệt (dùng làm text tạm, update khi có L3) |
 

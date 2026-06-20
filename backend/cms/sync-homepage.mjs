@@ -16,13 +16,13 @@
 
    Usage:
      # 1) Back up production first (always do this before any push to prod)
-     DIRECTUS_URL=https://cms.compassagewell.com \
-     DIRECTUS_EMAIL=admin@compassagewell.com DIRECTUS_PASSWORD=<prod-pw> \
+     DIRECTUS_URL=https://cms.compassscribe.com \
+     DIRECTUS_EMAIL=admin@compassscribe.com DIRECTUS_PASSWORD=<prod-pw> \
        node backend/cms/sync-homepage.mjs pull
 
      # 2) Push the BD content batch to LOCAL, verify at localhost:3000, then prod
      DIRECTUS_URL=http://localhost:8055 \
-     DIRECTUS_EMAIL=admin@compassagewell.com DIRECTUS_PASSWORD=<local-pw> \
+     DIRECTUS_EMAIL=admin@compassscribe.com DIRECTUS_PASSWORD=<local-pw> \
        node backend/cms/sync-homepage.mjs push
 
    Auth: DIRECTUS_TOKEN (static admin token) OR DIRECTUS_EMAIL + DIRECTUS_PASSWORD.
