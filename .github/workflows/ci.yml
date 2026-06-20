@@ -37,7 +37,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Build image
-        run: docker build -t agewell-web:ci .
+        run: docker build -t cmas-web:ci .
 
   # Read-only preview of infra/DB changes on every PR. NEVER applies — this is
   # the "light staging" safety net: review exactly what will change before merge.
@@ -81,7 +81,7 @@ jobs:
           terraform init \
             -backend-config="bucket=${{ secrets.TF_STATE_BUCKET }}" \
             -backend-config="region=${{ vars.AWS_REGION }}" \
-            -backend-config="dynamodb_table=agewell-tf-lock"
+            -backend-config="dynamodb_table=cmas-tf-lock"
 
       - name: Terraform validate
         run: terraform validate
