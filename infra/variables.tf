@@ -76,9 +76,9 @@ variable "ses_to" {
 }
 
 variable "github_repo" {
-  description = "GitHub repo in owner/name form, used to scope the OIDC deploy role trust policy. Set in terraform.tfvars."
+  description = "GitHub repo in owner/name form, used to scope the OIDC deploy role trust policy."
   type        = string
-  default     = ""
+  default     = "compass247/compassscribe"
 }
 
 /* ------------------------------------------------------------
