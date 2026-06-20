@@ -16,7 +16,7 @@ services:
     # surprise Postgres bump must never happen by accident. Mirror this exact
     # tag in the ECS postgres task definition.
     image: postgres:16-alpine
-    container_name: agewell-cms-db
+    container_name: cmas-cms-db
     environment:
       POSTGRES_USER: directus
       POSTGRES_PASSWORD: ${DB_PASSWORD:-directus}
@@ -36,7 +36,7 @@ services:
     # can run a breaking schema migration on restart. Bump deliberately and
     # test before changing this tag (and the matching prod task def).
     image: directus/directus:11.3.5
-    container_name: agewell-cms
+    container_name: cmas-cms
     ports:
       - "8055:8055"
     depends_on:
