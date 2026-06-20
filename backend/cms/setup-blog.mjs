@@ -256,21 +256,21 @@ async function seedSamplePost() {
   const translations = [
     {
       languages_code: "vi-VN",
-      title: "Chào mừng đến với Blog Compass AgeWell",
+      title: "Chào mừng đến với Blog Compassscribe",
       excerpt: "Bài viết mẫu — hãy thay bằng nội dung thật trong Directus.",
       body: "<p>Đây là bài viết mẫu để bạn thấy Blog hoạt động. " +
         "Vào Directus → Content → Posts để sửa hoặc xoá bài này và đăng bài của bạn.</p>",
-      meta_title: "Chào mừng đến với Blog Compass AgeWell",
-      meta_description: "Bài viết mẫu của Compass AgeWell.",
+      meta_title: "Chào mừng đến với Blog Compassscribe",
+      meta_description: "Bài viết mẫu của Compassscribe.",
     },
     {
       languages_code: "en-US",
-      title: "Welcome to the Compass AgeWell Blog",
+      title: "Welcome to the Compassscribe Blog",
       excerpt: "Sample post — replace it with real content in Directus.",
       body: "<p>This is a sample post so you can see the blog working. " +
         "Go to Directus → Content → Posts to edit or delete it and publish your own.</p>",
-      meta_title: "Welcome to the Compass AgeWell Blog",
-      meta_description: "A sample Compass AgeWell post.",
+      meta_title: "Welcome to the Compassscribe Blog",
+      meta_description: "A sample Compassscribe post.",
     },
   ];
   // published_at: omitted (null) — the blog sorts by it but tolerates null.

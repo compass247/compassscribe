@@ -1,4 +1,4 @@
-# Directus schema snapshot — Compass AgeWell CMS content model.
+# Directus schema snapshot — Compassscribe CMS content model.
 #
 # Apply with the Directus CLI (see backend/cms/README.md):
 #   docker compose -f backend/cms/docker-compose.cms.yml exec directus \

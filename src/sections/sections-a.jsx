@@ -1,15 +1,15 @@
 "use client";
 /* ============================================================
-   COMPASS AGEWELL — Sections A
+   COMPASSSCRIBE — Sections A
    Header · MobileAnchor · Hero · Problem · Services · CareLoop
    ============================================================ */
 import { Fragment, useState, useEffect } from "react";
 import { Icon } from "../components/icons.jsx";
-import { AGEWELL_COLORS, Reveal, SectionHead, scrollToId } from "../components/shared.jsx";
+import { SITE_COLORS, Reveal, SectionHead, scrollToId } from "../components/shared.jsx";
 import { LangToggle } from "../components/LangToggle.jsx";
 import { Link, usePathname } from "../i18n/navigation.js";
 
-const C = () => AGEWELL_COLORS;
+const C = () => SITE_COLORS;
 
 /* ---------------- Nav item ----------------
    One menu entry, shared by Header / MobileAnchor / Footer. Handles three
@@ -37,7 +37,7 @@ export function Header({ t, lang }) {
     <header className="site-header">
       <div className="container header-inner">
         <a className="brand" href="#top" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); }}>
-          <img src="/assets/logo-color.png" alt="Compass AgeWell" />
+          <img src="/assets/logo-color.svg" alt="Compassscribe" />
         </a>
 
         <nav className="nav-anchor" aria-label="Section navigation">

@@ -1,4 +1,4 @@
-# Compass AgeWell CMS (Directus) — local spike
+# Compassscribe CMS (Directus) — local spike
 
 This is **Phase 0** of the CMS migration: stand up Directus + Postgres locally so
 the BD team can try the editor before we provision anything on AWS. The same

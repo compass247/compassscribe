@@ -20,7 +20,7 @@ export async function generateMetadata({ params }) {
   const url = `${SITE_URL}/${lang}/${SLUG}`;
   return {
     metadataBase: new URL(SITE_URL),
-    title: `${title} — Compass AgeWell`,
+    title: `${title} — Compassscribe`,
     description,
     alternates: {
       canonical: url,

@@ -1,6 +1,6 @@
 # Playbook: Triển khai website từ đầu (Design → Git → AWS ECS → Domain → Launch)
 
-Tài liệu này mô tả **toàn bộ quy trình** đã dùng để launch website Compass AgeWell, viết
+Tài liệu này mô tả **toàn bộ quy trình** đã dùng để launch website Compassscribe, viết
 lại theo dạng có thể **lặp lại cho dự án tương tự**: từ một bản thiết kế prototype (Claude.ai
 hoặc bất kỳ React prototype nào) → biến thành web production → tự động deploy lên AWS ECS
 Fargate → trỏ domain qua Cloudflare → HTTPS → live.
@@ -63,7 +63,7 @@ winget install GitHub.cli                  # set secrets, theo dõi CI
 
 ### 2a. AWS — tạo IAM user + access key
 1. Đăng nhập AWS Console → dịch vụ **IAM**
-2. **Users → Create user** (vd `agewell-admin`), KHÔNG cần console access
+2. **Users → Create user** (vd `cmas-admin`), KHÔNG cần console access
 3. **Attach policies directly → AdministratorAccess** (thu hẹp quyền sau khi xong)
 4. Vào user → **Security credentials → Create access key → CLI** → tải `.csv`
 5. Trong terminal local: `aws configure` → nhập Access Key / Secret / region `us-east-1` / format `json`
@@ -154,11 +154,11 @@ Cấu trúc file (tách theo nhóm cho dễ đọc):
 State của Terraform không tự quản chính nó được, nên tạo bằng tay trước:
 ```powershell
 $ACCOUNT = (aws sts get-caller-identity --query Account --output text)
-$BUCKET = "agewell-tfstate-$ACCOUNT"
+$BUCKET = "cmas-tfstate-$ACCOUNT"
 aws s3api create-bucket --bucket $BUCKET --region us-east-1
 aws s3api put-bucket-versioning --bucket $BUCKET --versioning-configuration Status=Enabled
 aws s3api put-public-access-block --bucket $BUCKET --public-access-block-configuration "BlockPublicAcls=true,IgnorePublicAcls=true,BlockPublicPolicy=true,RestrictPublicBuckets=true"
-aws dynamodb create-table --table-name agewell-tf-lock --attribute-definitions AttributeName=LockID,AttributeType=S --key-schema AttributeName=LockID,KeyType=HASH --billing-mode PAY_PER_REQUEST --region us-east-1
+aws dynamodb create-table --table-name cmas-tf-lock --attribute-definitions AttributeName=LockID,AttributeType=S --key-schema AttributeName=LockID,KeyType=HASH --billing-mode PAY_PER_REQUEST --region us-east-1
 ```
 
 ### 6b. Cấu hình + apply
@@ -172,7 +172,7 @@ aws dynamodb create-table --table-name agewell-tf-lock --attribute-definitions A
 4. Init + plan + apply:
    ```powershell
    cd infra
-   terraform init -backend-config="bucket=$BUCKET" -backend-config="region=us-east-1" -backend-config="dynamodb_table=agewell-tf-lock"
+   terraform init -backend-config="bucket=$BUCKET" -backend-config="region=us-east-1" -backend-config="dynamodb_table=cmas-tf-lock"
    terraform plan -out tf.plan        # REVIEW kỹ: "X to add, 0 to destroy"
    terraform apply tf.plan            # gõ yes
    ```
@@ -188,16 +188,16 @@ aws dynamodb create-table --table-name agewell-tf-lock --attribute-definitions A
 
 Dùng `gh` CLI (lấy giá trị từ `terraform output`):
 ```powershell
-$REPO = "compass247/Agewell"
+$REPO = "compass247/compassscribe"
 # Secrets
 gh secret set AWS_DEPLOY_ROLE_ARN --repo $REPO --body "<github_deploy_role_arn>"
-gh secret set TF_STATE_BUCKET     --repo $REPO --body "agewell-tfstate-<account>"
+gh secret set TF_STATE_BUCKET     --repo $REPO --body "cmas-tfstate-<account>"
 # Variables
 gh variable set AWS_REGION         --repo $REPO --body "us-east-1"
-gh variable set ECR_REPOSITORY     --repo $REPO --body "agewell-web"
-gh variable set ECS_CLUSTER        --repo $REPO --body "agewell"
-gh variable set ECS_SERVICE        --repo $REPO --body "agewell-web"
-gh variable set LEAD_LAMBDA_NAME   --repo $REPO --body "agewell-lead-handler"
+gh variable set ECR_REPOSITORY     --repo $REPO --body "cmas-web"
+gh variable set ECS_CLUSTER        --repo $REPO --body "cmas"
+gh variable set ECS_SERVICE        --repo $REPO --body "cmas-web"
+gh variable set LEAD_LAMBDA_NAME   --repo $REPO --body "cmas-lead-handler"
 gh variable set API_BASE           --repo $REPO --body "https://api.compassscribe.com"
 gh variable set CLOUDFLARE_ZONE_ID --repo $REPO --body "<zone-id>"
 ```
@@ -208,21 +208,21 @@ gh variable set CLOUDFLARE_ZONE_ID --repo $REPO --body "<zone-id>"
 ## 8. Deploy lần đầu + verify
 
 ```powershell
-gh workflow run deploy.yml --repo compass247/Agewell --ref main
-gh run watch <run-id> --repo compass247/Agewell --exit-status
+gh workflow run deploy.yml --repo compass247/compassscribe --ref main
+gh run watch <run-id> --repo compass247/compassscribe --exit-status
 ```
 Pipeline: build image → push ECR → render task def → ECS rolling deploy → update Lambda.
 
 ### Verify production
 ```powershell
 # ECS healthy
-aws ecs describe-services --cluster agewell --services agewell-web --region us-east-1 --query 'services[0].{running:runningCount,desired:desiredCount}'
+aws ecs describe-services --cluster cmas --services cmas-web --region us-east-1 --query 'services[0].{running:runningCount,desired:desiredCount}'
 # Site
 curl -s -o /dev/null -w "%{http_code}" https://compassscribe.com/         # 200
 curl -s -o /dev/null -w "%{http_code}" https://compassscribe.com/healthz  # 200
 # Form API
 curl -X POST https://api.compassscribe.com/api/lead -H "Content-Type: application/json" -d '{"name":"Test","phone":"408-555-1234","lang":"vi","source":"smoke"}'
-# → {"ok":true,...}; kiểm DynamoDB: aws dynamodb scan --table-name agewell-leads --region us-east-1 --query Count
+# → {"ok":true,...}; kiểm DynamoDB: aws dynamodb scan --table-name cmas-leads --region us-east-1 --query Count
 ```
 
 Sau đó **xóa lead test** khỏi DynamoDB nếu cần.
@@ -247,8 +247,8 @@ Sau đó **xóa lead test** khỏi DynamoDB nếu cần.
 cd infra
 terraform destroy            # xoá 39 resource AWS + DNS Cloudflare
 # Xoá state bucket + lock table thủ công (chúng nằm ngoài Terraform)
-aws s3 rb s3://agewell-tfstate-<account> --force
-aws dynamodb delete-table --table-name agewell-tf-lock --region us-east-1
+aws s3 rb s3://cmas-tfstate-<account> --force
+aws dynamodb delete-table --table-name cmas-tf-lock --region us-east-1
 ```
 
 ---

@@ -1,11 +1,11 @@
 "use client";
 /* ============================================================
-   COMPASS AGEWELL — Shared helpers
+   COMPASSSCRIBE — Shared helpers
    ============================================================ */
 import { useRef, useEffect, useState } from "react";
 
 // Brand color hex map for accents on cards
-export const AGEWELL_COLORS = {
+export const SITE_COLORS = {
   green:  { hex: "#26a146", d: "#1c7d36", chip: "chip-green",  soft: "#ecf3e0" },
   blue:   { hex: "#007bc3", d: "#0367a3", chip: "chip-blue",   soft: "#e2f0fb" },
   orange: { hex: "#f47d42", d: "#e0651f", chip: "chip-orange", soft: "#fdebe0" },

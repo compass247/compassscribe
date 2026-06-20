@@ -1,6 +1,6 @@
 "use client";
 /* ============================================================
-   COMPASS AGEWELL — Homepage (client shell)
+   COMPASSSCRIBE — Homepage (client shell)
    Ported from the old App.jsx. The language now comes from the
    URL (the [lang] route segment) instead of localStorage, and the
    VI/EN toggle navigates between /vi and /en (see Header/Footer).

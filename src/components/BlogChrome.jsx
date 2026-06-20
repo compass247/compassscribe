@@ -1,6 +1,6 @@
 "use client";
 /* ============================================================
-   COMPASS AGEWELL — Blog chrome (header + footer wrapper)
+   COMPASSSCRIBE — Blog chrome (header + footer wrapper)
    Wraps blog pages in the same Header/Footer/ContactBar as the
    homepage so navigation + language toggle stay consistent.
    The article body itself is server-rendered (passed as children)

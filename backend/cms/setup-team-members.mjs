@@ -22,7 +22,7 @@
 
    RESET=1 drops the (empty) collections first — recovery only.
    ============================================================ */
-import { AGEWELL_CONTENT } from "../../src/content-data.js";
+import { SITE_CONTENT } from "../../src/content-data.js";
 
 const DIRECTUS_URL = (process.env.DIRECTUS_URL || "http://localhost:8055").replace(/\/$/, "");
 const SITE_URL = (process.env.SITE_URL || "https://compassscribe.com").replace(/\/$/, "");
@@ -224,8 +224,8 @@ async function seedMembers() {
     console.log("= team_members already has rows — leaving them untouched");
     return;
   }
-  const vi = AGEWELL_CONTENT.vi.usp.team || [];
-  const en = AGEWELL_CONTENT.en.usp.team || [];
+  const vi = SITE_CONTENT.vi.usp.team || [];
+  const en = SITE_CONTENT.en.usp.team || [];
   for (let i = 0; i < vi.length; i++) {
     const v = vi[i];
     const e = en[i] || v;

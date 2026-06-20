@@ -8,7 +8,7 @@ import BlogChrome from "../../../src/components/BlogChrome.jsx";
 export async function generateMetadata({ params }) {
   const { lang } = await params;
   const title =
-    lang === "en" ? "Blog — Compass AgeWell" : "Bài viết — Compass AgeWell";
+    lang === "en" ? "Blog — Compassscribe" : "Bài viết — Compassscribe";
   const description =
     lang === "en"
       ? "Health knowledge and news for Vietnamese seniors on Medicare."

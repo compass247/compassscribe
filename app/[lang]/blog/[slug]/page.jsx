@@ -12,7 +12,7 @@ export async function generateMetadata({ params }) {
   const url = `${SITE_URL}/${lang}/blog/${slug}`;
   return {
     metadataBase: new URL(SITE_URL),
-    title: `${post.metaTitle} — Compass AgeWell`,
+    title: `${post.metaTitle} — Compassscribe`,
     description: post.metaDescription,
     alternates: {
       canonical: url,
@@ -53,7 +53,7 @@ export default async function Article({ params }) {
     inLanguage: lang === "en" ? "en-US" : "vi-VN",
     publisher: {
       "@type": "Organization",
-      name: "Compass AgeWell",
+      name: "Compassscribe",
     },
   };
 

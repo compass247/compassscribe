@@ -34,7 +34,7 @@
 import { writeFileSync } from "fs";
 import { fileURLToPath } from "url";
 import { dirname, resolve } from "path";
-import { AGEWELL_CONTENT } from "../../src/content-data.js";
+import { SITE_CONTENT } from "../../src/content-data.js";
 
 const DIRECTUS_URL = (process.env.DIRECTUS_URL || "http://localhost:8055").replace(/\/$/, "");
 const LANG_TO_CODE = { vi: "vi-VN", en: "en-US" };
@@ -112,7 +112,7 @@ async function push() {
   for (const [langKey, code] of Object.entries(LANG_TO_CODE)) {
     const id = byCode[code];
     if (!id) { console.log(`! no ${code} row — skipped (run seed-homepage first)`); continue; }
-    const c = AGEWELL_CONTENT[langKey];
+    const c = SITE_CONTENT[langKey];
     const patch = {};
     for (const sec of SECTIONS) patch[sec] = c[sec];
     await api(`/items/homepage_translations/${id}`, "PATCH", patch);

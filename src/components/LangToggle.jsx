@@ -1,6 +1,6 @@
 "use client";
 /* ============================================================
-   COMPASS AGEWELL — Language toggle
+   COMPASSSCRIBE — Language toggle
    Swaps the URL locale prefix (/vi <-> /en) instead of flipping
    client state. Keeps the same path so the user stays on the same
    page in the other language — every language has a crawlable URL.
@@ -15,7 +15,7 @@ export function LangToggle({ lang }) {
 
   const switchTo = (next) => {
     try {
-      localStorage.setItem("agewell-lang", next);
+      localStorage.setItem("compassscribe-lang", next);
     } catch {
       /* ignore */
     }

@@ -1,4 +1,4 @@
-# Developer Guide — Compass AgeWell
+# Developer Guide — Compassscribe
 
 Hướng dẫn cho developer xử lý **mọi yêu cầu thay đổi / bổ sung của BD** sau khi website đã
 launch: cách code, fix bug, test, và deploy. Đọc kèm [README.md](../README.md) (tổng quan) và
@@ -12,8 +12,8 @@ launch: cách code, fix bug, test, và deploy. Đọc kèm [README.md](../README
 ## 1. Setup môi trường dev (lần đầu)
 
 ```powershell
-git clone https://github.com/compass247/Agewell.git
-cd Agewell
+git clone https://github.com/compass247/compassscribe.git
+cd compassscribe
 npm install
 npm run dev          # http://localhost:5173
 ```
@@ -116,7 +116,7 @@ Mở **3 terminal** (hoặc dùng script):
 ```powershell
 # Terminal 1 — DynamoDB Local + admin UI (qua Docker)
 npm run db:up
-npm run db:init        # tạo bảng agewell-leads trong DynamoDB Local (chỉ lần đầu / sau khi db:up lại)
+npm run db:init        # tạo bảng cmas-leads trong DynamoDB Local (chỉ lần đầu / sau khi db:up lại)
 
 # Terminal 2 — backend local (Lambda handler bọc trong server :8787)
 npm run backend:dev
@@ -126,10 +126,10 @@ npm run dev            # http://localhost:5173
 ```
 → Mở `http://localhost:5173`, submit form → lead lưu vào **DynamoDB Local** (không phải production).
 
-**Xem data đã lưu**: mở `http://localhost:8001` (DynamoDB Admin UI) → bảng `agewell-leads`.
+**Xem data đã lưu**: mở `http://localhost:8001` (DynamoDB Admin UI) → bảng `cmas-leads`.
 Hoặc CLI:
 ```powershell
-aws dynamodb scan --table-name agewell-leads --endpoint-url http://localhost:8000 --region us-east-1
+aws dynamodb scan --table-name cmas-leads --endpoint-url http://localhost:8000 --region us-east-1
 ```
 
 **Tắt khi xong**:
@@ -150,7 +150,7 @@ VITE_API_BASE=https://api.compassscribe.com
 ```
 Submit trên `npm run dev` → lead vào **DynamoDB production**. Gõ tên "TEST" để dễ xoá:
 ```powershell
-aws dynamodb scan --table-name agewell-leads --region us-east-1 --query 'Count'
+aws dynamodb scan --table-name cmas-leads --region us-east-1 --query 'Count'
 ```
 
 ### 4d. Test container (khi sửa Dockerfile/nginx)
@@ -232,7 +232,7 @@ Mỗi image tag bằng git SHA. Rollback = trỏ ECS về image cũ:
 git revert HEAD
 git push origin main
 # Cách nhanh: force ECS về task definition revision trước
-aws ecs update-service --cluster agewell --service agewell-web --task-definition agewell-web:<revision-cũ> --force-new-deployment --region us-east-1
+aws ecs update-service --cluster cmas --service cmas-web --task-definition cmas-web:<revision-cũ> --force-new-deployment --region us-east-1
 ```
 
 ---
@@ -255,7 +255,7 @@ aws ecs update-service --cluster agewell --service agewell-web --task-definition
 ### Debug backend (Lambda)
 Xem log:
 ```powershell
-aws logs tail /aws/lambda/agewell-lead-handler --follow --region us-east-1
+aws logs tail /aws/lambda/cmas-lead-handler --follow --region us-east-1
 ```
 Lỗi form thường gặp:
 - Form báo lỗi gửi → check CORS (Lambda env `ALLOWED_ORIGIN`) hoặc API Gateway.
@@ -264,8 +264,8 @@ Lỗi form thường gặp:
 
 ### Debug ECS (web không lên)
 ```powershell
-aws ecs describe-services --cluster agewell --services agewell-web --region us-east-1 --query 'services[0].events[:5]'
-aws logs tail /ecs/agewell-web --follow --region us-east-1
+aws ecs describe-services --cluster cmas --services cmas-web --region us-east-1 --query 'services[0].events[:5]'
+aws logs tail /ecs/cmas-web --follow --region us-east-1
 ```
 Target unhealthy thường do `/healthz` không trả 200 → kiểm `nginx.conf`.
 
@@ -292,17 +292,17 @@ Có thể giao việc này cho người không chuyên dev (chỉ cần cẩn th
 |---|---|
 | AWS account | 381492229787 |
 | Region | us-east-1 |
-| ECS cluster / service | `agewell` / `agewell-web` |
-| ECR repo | `agewell-web` |
-| Lambda | `agewell-lead-handler` |
-| DynamoDB | `agewell-leads` (PK: `leadId`) |
+| ECS cluster / service | `cmas` / `cmas-web` |
+| ECR repo | `cmas-web` |
+| Lambda | `cmas-lead-handler` |
+| DynamoDB | `cmas-leads` (PK: `leadId`) |
 | Domain | compassscribe.com (Cloudflare, DNS-only) |
 | API | https://api.compassscribe.com/api/lead |
-| Terraform state | S3 `agewell-tfstate-381492229787` + lock `agewell-tf-lock` |
+| Terraform state | S3 `cmas-tfstate-381492229787` + lock `cmas-tf-lock` |
 
 Xem lead đã thu:
 ```powershell
-aws dynamodb scan --table-name agewell-leads --region us-east-1 --output json
+aws dynamodb scan --table-name cmas-leads --region us-east-1 --output json
 ```
 
 ---

@@ -1,5 +1,5 @@
 /* ============================================================
-   COMPASS AGEWELL — Local dev server for the lead handler.
+   COMPASSSCRIBE — Local dev server for the lead handler.
    Wraps the Lambda handler in an Express server so the form
    works at http://localhost:8787/api/lead, exactly like the
    API Gateway → Lambda path in production.

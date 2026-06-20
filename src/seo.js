@@ -1,9 +1,9 @@
 /* ============================================================
-   COMPASS AGEWELL — SEO helpers
+   COMPASSSCRIBE — SEO helpers
    Centralizes site URL, per-language OG locales and hreflang
    alternates so every page builds correct metadata.
    ============================================================ */
-import { AGEWELL_CONTENT } from "./content-data.js";
+import { SITE_CONTENT } from "./content-data.js";
 
 export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://compassscribe.com";
 
@@ -23,18 +23,18 @@ export function languageAlternates(pathWithoutLocale = "") {
 
 // Default homepage metadata, ported from the old index.html, per language.
 export function homeMetadata(lang) {
-  const C = AGEWELL_CONTENT[lang] || AGEWELL_CONTENT.vi;
+  const C = SITE_CONTENT[lang] || SITE_CONTENT.vi;
   const title =
     lang === "en"
-      ? "Compass AgeWell — Healthcare at home, in your own language"
-      : "Compass AgeWell — Chăm sóc sức khỏe tại nhà bằng tiếng Việt";
+      ? "Compassscribe — Healthcare at home, in your own language"
+      : "Compassscribe — Chăm sóc sức khỏe tại nhà bằng tiếng Việt";
   const description = C.hero.sub;
   const url = `${SITE_URL}/${lang}`;
   return {
     metadataBase: new URL(SITE_URL),
     title,
     description,
-    icons: { icon: "/assets/logo-color.png" },
+    icons: { icon: "/assets/logo-color.svg" },
     alternates: {
       canonical: url,
       languages: languageAlternates(""),

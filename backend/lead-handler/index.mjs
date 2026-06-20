@@ -1,5 +1,5 @@
 /* ============================================================
-   COMPASS AGEWELL — Lead form handler (AWS Lambda)
+   COMPASSSCRIBE — Lead form handler (AWS Lambda)
    Triggered by API Gateway (HTTP API) on POST /api/lead.
    - Validates name + phone
    - Rejects bot submissions via honeypot
@@ -107,9 +107,9 @@ export async function handler(event) {
   // Email notification is best-effort — a failure here must not fail the lead.
   if (SES_FROM && SES_TO) {
     try {
-      const subject = `[AgeWell] Lead mới: ${name} (${phone})`;
+      const subject = `[Compassscribe] Lead mới: ${name} (${phone})`;
       const text =
-        `Lead mới từ website Compass AgeWell\n\n` +
+        `Lead mới từ website Compassscribe\n\n` +
         `Họ tên: ${name}\n` +
         `Điện thoại: ${phone}\n` +
         `Dịch vụ quan tâm: ${services.join(", ") || "(không chọn)"}\n` +

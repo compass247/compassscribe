@@ -1,16 +1,16 @@
 "use client";
 /* ============================================================
-   COMPASS AGEWELL — Sections B
+   COMPASSSCRIBE — Sections B
    USP+Team · Eligibility+FAQ · Testimonials · Form · Footer · ContactBar
    ============================================================ */
 import { useState, useRef } from "react";
 import { Icon } from "../components/icons.jsx";
-import { AGEWELL_COLORS, Reveal, SectionHead, Placeholder, scrollToId } from "../components/shared.jsx";
+import { SITE_COLORS, Reveal, SectionHead, Placeholder, scrollToId } from "../components/shared.jsx";
 import { LangToggle } from "../components/LangToggle.jsx";
 import { NavItem } from "./sections-a.jsx";
 import { submitLead } from "../api.js";
 
-const C = () => AGEWELL_COLORS;
+const C = () => SITE_COLORS;
 const go = (id) => scrollToId(id);
 
 const CHATS = [
@@ -292,7 +292,7 @@ export function Footer({ t, lang }) {
       <div className="container">
         <div className="footer-top">
           <div className="footer-brand">
-            <span className="logo-pill"><img src="/assets/logo-white.png" alt="Compass AgeWell" /></span>
+            <span className="logo-pill"><img src="/assets/logo-white.svg" alt="Compassscribe" /></span>
             <p style={{ color: "#fff", fontWeight: 600, marginBottom: 8 }}>{fo.tagline}</p>
             <p>{fo.desc}</p>
           </div>
