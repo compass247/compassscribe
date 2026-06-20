@@ -189,7 +189,7 @@ aws secretsmanager get-secret-value --secret-id cmas-cms `
 ```
 2. Mở `https://cms.compassscribe.com` → đăng nhập `admin@compassscribe.com` + password trên → **đổi password ngay**.
 3. Tạo schema/collections — chọn 1 cách:
-   - **Sync từ CMS AgeWell cũ** (giữ cấu trúc): xem `docs/LOCAL-DEV.md` phần `schema-sync.mjs`.
+   - **Sync từ CMS cũ** (giữ cấu trúc): xem `docs/LOCAL-DEV.md` phần `schema-sync.mjs`.
    - **Tạo mới** bằng seed:
      ```powershell
      $env:DIRECTUS_URL = "https://cms.compassscribe.com"

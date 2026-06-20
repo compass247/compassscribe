@@ -1,7 +1,7 @@
 /* ============================================================
-   COMPASS AGEWELL — Lead sync (DynamoDB Streams -> Directus)
+   COMPASSSCRIBE — Lead sync (DynamoDB Streams -> Directus)
 
-   Mirrors new/updated leads from the `agewell-leads` DynamoDB table into a
+   Mirrors new/updated leads from the `cmas-leads` DynamoDB table into a
    read-only `leads` collection in Directus, so the BD team can view + export
    submissions in the same admin they use for blog/homepage.
 

@@ -13,7 +13,7 @@
 
    Get a static token: Studio → your user → "Token" field → generate → save.
    ============================================================ */
-import { AGEWELL_CONTENT } from "../../src/content-data.js";
+import { SITE_CONTENT } from "../../src/content-data.js";
 
 const DIRECTUS_URL = process.env.DIRECTUS_URL || "http://localhost:8055";
 const TOKEN = process.env.DIRECTUS_TOKEN;
@@ -52,7 +52,7 @@ async function directus(path, init = {}) {
  * overlays them onto content-data.js.
  */
 function buildTranslation(langKey) {
-  const c = AGEWELL_CONTENT[langKey];
+  const c = SITE_CONTENT[langKey];
   return {
     languages_code: LANG_TO_CODE[langKey],
     // Stored as JSON columns in homepage_translations. Field names mirror the

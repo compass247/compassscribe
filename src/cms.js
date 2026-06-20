@@ -1,5 +1,5 @@
 /* ============================================================
-   COMPASS AGEWELL — Directus CMS client
+   COMPASSSCRIBE — Directus CMS client
    Reads published content (blog posts, homepage) from the self-hosted
    Directus instance. Mirrors the style of src/api.js.
 

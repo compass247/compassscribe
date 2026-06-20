@@ -1,5 +1,5 @@
 /* ============================================================
-   COMPASS AGEWELL — Icon set (clean line icons, currentColor)
+   COMPASSSCRIBE — Icon set (clean line icons, currentColor)
    Functional UI icons only. 24×24, stroke 2, round caps.
    ============================================================ */
 const P = {

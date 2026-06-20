@@ -1,9 +1,9 @@
 /* ============================================================
-   COMPASS AGEWELL — Bilingual content (VI / EN)
+   COMPASSSCRIBE — Bilingual content (VI / EN)
    Text based on Design Brief + Content Mapping L2 (placeholder
    copy, ready to swap for approved L3).
    ============================================================ */
-export const AGEWELL_CONTENT = {
+export const SITE_CONTENT = {
   vi: {
     dir: "vi",
     nav: [
@@ -17,7 +17,7 @@ export const AGEWELL_CONTENT = {
     hotline: { label: "Gọi miễn phí", number: "855-999-9911", tel: "+18559999911" },
 
     hero: {
-      eyebrow: "Compass AgeWell",
+      eyebrow: "Compassscribe",
       title: "Chăm sóc sức khỏe tại nhà bằng tiếng Việt",
       sub: "Bác sĩ, dược sĩ và điều phối viên nói được song ngữ Việt - Anh sẽ đồng hành chăm sóc sức khỏe mỗi tháng qua điện thoại hoặc video.",
       ctaPrimary: "Đăng ký tư vấn miễn phí",
@@ -143,8 +143,8 @@ export const AGEWELL_CONTENT = {
       contactTitle: "Liên hệ",
       navTitle: "Trang",
       chatTitle: "Nhắn tin với chúng tôi",
-      disclaimer: "Disclaimer: Bạn có quyền từ chối hoặc rút khỏi chương trình chăm sóc bất kỳ lúc nào mà không ảnh hưởng đến quyền lợi Medicare Original. Điều kiện tham gia và chi trả phụ thuộc vào gói Medicare Original của từng khách hàng — trong đó dịch vụ Rà Soát Thuốc (MTM) yêu cầu thêm Medicare Part D. Để biết thêm về quyền lợi Medicare, gọi 1-800-MEDICARE (1-800-633-4227). Compass AgeWell không được CMS hay bất kỳ cơ quan chính phủ nào xác nhận hay bảo trợ.",
-      rights: "© 2026 Compass AgeWell. Mọi quyền được bảo lưu.",
+      disclaimer: "Disclaimer: Bạn có quyền từ chối hoặc rút khỏi chương trình chăm sóc bất kỳ lúc nào mà không ảnh hưởng đến quyền lợi Medicare Original. Điều kiện tham gia và chi trả phụ thuộc vào gói Medicare Original của từng khách hàng — trong đó dịch vụ Rà Soát Thuốc (MTM) yêu cầu thêm Medicare Part D. Để biết thêm về quyền lợi Medicare, gọi 1-800-MEDICARE (1-800-633-4227). Compassscribe không được CMS hay bất kỳ cơ quan chính phủ nào xác nhận hay bảo trợ.",
+      rights: "© 2026 Compassscribe. Mọi quyền được bảo lưu.",
     },
 
     contactBar: { call: "Gọi", chat: "Nhắn tin" },
@@ -164,7 +164,7 @@ export const AGEWELL_CONTENT = {
     hotline: { label: "Toll-free", number: "855-999-9911", tel: "+18559999911" },
 
     hero: {
-      eyebrow: "Compass AgeWell",
+      eyebrow: "Compassscribe",
       title: "Healthcare at home, in your own language",
       sub: "Vietnamese-speaking doctors, pharmacists and care coordinators by your side every month — by phone, right at home.",
       ctaPrimary: "Get a free consultation",
@@ -290,8 +290,8 @@ export const AGEWELL_CONTENT = {
       contactTitle: "Contact",
       navTitle: "Pages",
       chatTitle: "Message us",
-      disclaimer: "Disclaimer: You have the right to refuse or withdraw from the care program at any time without affecting your Medicare Original benefits. Eligibility and coverage depend on each member's Medicare Original plan — Medication Therapy Management (MTM) additionally requires Medicare Part D. For more information about Medicare benefits, call 1-800-MEDICARE (1-800-633-4227). Compass AgeWell is not endorsed or sponsored by CMS or any government agency.",
-      rights: "© 2026 Compass AgeWell. All rights reserved.",
+      disclaimer: "Disclaimer: You have the right to refuse or withdraw from the care program at any time without affecting your Medicare Original benefits. Eligibility and coverage depend on each member's Medicare Original plan — Medication Therapy Management (MTM) additionally requires Medicare Part D. For more information about Medicare benefits, call 1-800-MEDICARE (1-800-633-4227). Compassscribe is not endorsed or sponsored by CMS or any government agency.",
+      rights: "© 2026 Compassscribe. All rights reserved.",
     },
 
     contactBar: { call: "Call", chat: "Chat" },

@@ -1,6 +1,6 @@
 # Infrastructure (Terraform)
 
-Provisions the full AWS + Cloudflare stack for Compass AgeWell:
+Provisions the full AWS + Cloudflare stack for Compassscribe:
 
 - **Frontend**: ECR + ECS Fargate (nginx static) behind an ALB with ACM HTTPS
 - **Backend**: DynamoDB + Lambda + HTTP API Gateway (`api.compassscribe.com`) + SES
@@ -14,14 +14,14 @@ can't be managed by the same state they store):
 
 ```bash
 AWS_REGION=us-east-1
-BUCKET=agewell-tfstate-$(aws sts get-caller-identity --query Account --output text)
+BUCKET=cmas-tfstate-$(aws sts get-caller-identity --query Account --output text)
 
 aws s3api create-bucket --bucket "$BUCKET" --region "$AWS_REGION"
 aws s3api put-bucket-versioning --bucket "$BUCKET" \
   --versioning-configuration Status=Enabled
 
 aws dynamodb create-table \
-  --table-name agewell-tf-lock \
+  --table-name cmas-tf-lock \
   --attribute-definitions AttributeName=LockID,AttributeType=S \
   --key-schema AttributeName=LockID,KeyType=HASH \
   --billing-mode PAY_PER_REQUEST \
@@ -49,7 +49,7 @@ cd infra
 terraform init \
   -backend-config="bucket=$BUCKET" \
   -backend-config="region=$AWS_REGION" \
-  -backend-config="dynamodb_table=agewell-tf-lock"
+  -backend-config="dynamodb_table=cmas-tf-lock"
 
 terraform plan -out tf.plan
 terraform apply tf.plan

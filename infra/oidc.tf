@@ -53,8 +53,8 @@ resource "aws_iam_role_policy_attachment" "github_deploy_poweruser" {
 # CMS EC2 host), the deploy role cannot grant itself the permission mid-apply —
 # the apply that would add the action fails first on the action it lacks. Fix
 # once by patching the action onto this inline policy out-of-band, e.g.:
-#   aws iam put-role-policy --role-name agewell-github-deploy \
-#     --policy-name agewell-github-deploy-iam --policy-document file://policy.json
+#   aws iam put-role-policy --role-name cmas-github-deploy \
+#     --policy-name cmas-github-deploy-iam --policy-document file://policy.json
 # then re-run the deploy. Subsequent applies are idempotent (no drift).
 resource "aws_iam_role_policy" "github_deploy_iam" {
   name = "${var.project}-github-deploy-iam"

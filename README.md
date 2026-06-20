@@ -1,6 +1,6 @@
-# Compass AgeWell — Website
+# Compassscribe — Website
 
-Bilingual (Vietnamese / English) single-page marketing site for **Compass AgeWell** —
+Bilingual (Vietnamese / English) single-page marketing site for **Compassscribe** —
 at-home healthcare for Vietnamese-speaking seniors on Medicare in the U.S.
 
 Built as a **Vite + React 18** static site, served by **nginx on AWS ECS Fargate**

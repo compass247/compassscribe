@@ -1,5 +1,5 @@
 /* ============================================================
-   COMPASS AGEWELL — Lead form API client
+   COMPASSSCRIBE — Lead form API client
    POSTs the signup form to the serverless backend.
    Base URL is configurable via NEXT_PUBLIC_API_BASE (defaults to same-origin
    so the ALB/Cloudflare can route /api to the backend).

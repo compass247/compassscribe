@@ -31,7 +31,7 @@
      (re-run later with the secret to add the webhook — step 3 is idempotent).
    - SITE_URL (optional, default https://compassscribe.com) is the webhook target.
    ============================================================ */
-import { AGEWELL_CONTENT } from "../../src/content-data.js";
+import { SITE_CONTENT } from "../../src/content-data.js";
 
 const DIRECTUS_URL = (process.env.DIRECTUS_URL || "http://localhost:8055").replace(/\/$/, "");
 const SITE_URL = (process.env.SITE_URL || "https://compassscribe.com").replace(/\/$/, "");
@@ -273,7 +273,7 @@ async function grantPublicRead() {
 // Build a simple, meaningful HTML body from the existing team data so the page
 // is non-empty immediately. BD replaces this in the Studio.
 function teamBodyHtml(langKey) {
-  const u = AGEWELL_CONTENT[langKey].usp;
+  const u = SITE_CONTENT[langKey].usp;
   const intro = u.teamTitle ? `<p>${u.teamTitle}</p>` : "";
   const cards = (u.team || []).map((m) =>
     `<h3>${m.title}</h3>\n<p><strong>${m.role}.</strong> ${m.text}</p>`

@@ -4,7 +4,7 @@ Guidance for Claude Code when working in this repo.
 
 ## What this is
 
-Marketing website for **Compass AgeWell** (bilingual VI/EN healthcare for Vietnamese
+Marketing website for **Compassscribe** (bilingual VI/EN healthcare for Vietnamese
 seniors on Medicare). Vite + React 18 static SPA → nginx on ECS Fargate; serverless
 lead form (API Gateway + Lambda + DynamoDB + SES); Terraform infra; GitHub Actions CI/CD;
 Cloudflare DNS.
@@ -27,7 +27,7 @@ npm run preview  # serve built dist/
   chosen design tokens (green accent `#26a146`, 19px base, bordered service cards,
   circular care loop) are hardcoded in `src/App.jsx`.
 - **Bilingual content** is data-driven in `src/content-data.js` (`vi` / `en`). Language
-  state persists in `localStorage` under `agewell-lang`. No i18n library.
+  state persists in `localStorage` under `compassscribe-lang`. No i18n library.
 - The **lead form** (`src/sections/sections-b.jsx` → `src/api.js`) POSTs to `/api/lead`.
   `VITE_API_BASE` (baked at build time) points it at `https://api.compassscribe.com` in
   production; empty = same-origin. A hidden honeypot field (`company`) blocks bots.
