@@ -1,0 +1,51 @@
+# Dependencies
+node_modules/
+backend/lead-handler/node_modules/
+backend/lead-sync/node_modules/
+
+# Build output
+dist/
+.next/
+next-env.d.ts
+*.local
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Editor / OS
+.DS_Store
+Thumbs.db
+.vscode/*
+!.vscode/extensions.json
+.idea/
+
+# Env
+.env
+.env.*
+!.env.example
+
+# Directus schema snapshot (pulled from an instance; structure only, not committed)
+backend/cms/snapshot.json
+
+# Directus homepage content backup (pulled from an instance; not committed)
+backend/cms/homepage-prod.json
+
+# Claude Code tooling config (per-developer; not project code)
+.claude/
+
+# Terraform
+infra/.terraform/
+infra/*.tfstate
+infra/*.tfstate.*
+infra/.terraform.lock.hcl
+infra/*.tfvars
+!infra/*.tfvars.example
+infra/tf.plan
+crash.log
+
+# Backend build artifacts
+backend/**/*.zip
+infra/build/

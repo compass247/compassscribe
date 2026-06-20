@@ -1,0 +1,31 @@
+{
+  "name": "agewell-web",
+  "private": true,
+  "version": "2.0.0",
+  "description": "Compass AgeWell — website (Next.js + Directus CMS)",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint --max-warnings 0",
+    "db:up": "docker compose -f backend/docker-compose.local.yml up -d",
+    "db:down": "docker compose -f backend/docker-compose.local.yml down",
+    "db:init": "npm --prefix backend/lead-handler run db:init",
+    "backend:dev": "npm --prefix backend/lead-handler run dev",
+    "cms:up": "docker compose -f backend/cms/docker-compose.cms.yml --env-file backend/cms/.env up -d",
+    "cms:down": "docker compose -f backend/cms/docker-compose.cms.yml down",
+    "cms:snapshot:prod": "node backend/cms/schema-sync.mjs snapshot",
+    "cms:apply:local": "node backend/cms/schema-sync.mjs apply",
+    "cms:seed:local": "node backend/cms/seed-local.mjs"
+  },
+  "dependencies": {
+    "next": "14.2.18",
+    "next-intl": "^3.26.3",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  },
+  "devDependencies": {
+    "eslint": "^8.57.1",
+    "eslint-config-next": "14.2.18"
+  }
+}
