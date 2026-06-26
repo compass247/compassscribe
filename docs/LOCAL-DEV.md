@@ -5,11 +5,26 @@ trước, chạy đúng rồi mới push/deploy lên production.** Tài liệu n
 đầy đủ.
 
 Bạn sẽ có 2 thứ chạy ở máy:
-- **Directus local** (Docker) ở `http://localhost:8055` — bản sao cấu trúc của prod.
-- **Next.js local** ở `http://localhost:3000` — website đọc từ Directus local.
+- **Directus local** (Docker) ở `http://localhost:8155` — bản sao cấu trúc của prod.
+- **Next.js local** ở `http://localhost:3100` — website đọc từ Directus local.
+
+> Compassscribe dùng dải port **31xx/81xx** để chạy SONG SONG với dự án AgeWell
+> (giữ 30xx/80xx). Đừng đổi về 3000/8055 — frontend sẽ nối nhầm vào CMS AgeWell.
 
 Production (`cms.compassscribe.com`, `compassscribe.com`) **không bị đụng tới**
 trong suốt quá trình test.
+
+## ⚡ Cách nhanh nhất: skill `/run-local`
+
+Trong Claude Code, gõ **`/run-local`** — nó tự up Docker, seed đầy đủ (nếu DB trống),
+chạy frontend :3100 và verify mọi route sạch. Quy trình thủ công bên dưới chỉ cần
+khi muốn làm từng bước tay. Tương đương 1 lệnh:
+```powershell
+npm run cms:up; npm run db:up
+$env:DIRECTUS_EMAIL="admin@compassscribe.com"; $env:DIRECTUS_PASSWORD="<local-pw>"
+npm run cms:seed:local   # = node backend/cms/run-local-seed.mjs (seed full, đúng thứ tự)
+npm run dev              # frontend :3100
+```
 
 ---
 
@@ -17,7 +32,7 @@ trong suốt quá trình test.
 
 1. **Docker Desktop** đang chạy (đã cài sẵn).
 2. File `backend/cms/.env` tồn tại (đã có). Đây là cấu hình Directus local.
-3. File `.env.local` ở gốc dự án có dòng `NEXT_PUBLIC_CMS_BASE=http://localhost:8055`
+3. File `.env.local` ở gốc dự án có dòng `NEXT_PUBLIC_CMS_BASE=http://localhost:8155`
    (đã set). Nếu chưa, copy từ `.env.example`.
 
 ---
@@ -28,7 +43,7 @@ trong suốt quá trình test.
 ```powershell
 npm run cms:up
 ```
-Đợi ~30 giây. Mở `http://localhost:8055`, đăng nhập bằng `ADMIN_EMAIL` /
+Đợi ~30 giây. Mở `http://localhost:8155`, đăng nhập bằng `ADMIN_EMAIL` /
 `ADMIN_PASSWORD` trong `backend/cms/.env`.
 
 ### Bước 2 — Kéo cấu trúc thật từ production về (1 lần, hoặc khi prod đổi schema)
@@ -45,7 +60,7 @@ npm run cms:snapshot:prod
 ### Bước 3 — Áp cấu trúc đó vào Directus local
 Cần đăng nhập admin **local** (trong `backend/cms/.env`):
 ```powershell
-$env:DST_URL="http://localhost:8055"
+$env:DST_URL="http://localhost:8155"
 $env:DST_EMAIL="admin@compassscribe.com"
 $env:DST_PASSWORD="<mat-khau-local trong backend/cms/.env>"
 npm run cms:apply:local
@@ -58,37 +73,39 @@ và các quan hệ ảnh).
 
 ### Bước 4 — Tạo nội dung mẫu ở local
 ```powershell
-$env:DIRECTUS_URL="http://localhost:8055"
+$env:DIRECTUS_URL="http://localhost:8155"
 $env:DIRECTUS_EMAIL="admin@compassscribe.com"
 $env:DIRECTUS_PASSWORD="<mat-khau-local>"
 npm run cms:seed:local
 ```
-Chạy cả 3 script setup (team page, blog, team members) trỏ vào local → có trang
-team/bài blog mẫu/3 thành viên, **cấp quyền đọc Public**, và tạo webhook
-revalidate **trỏ về `localhost:3000`** (không phải production). `cms:seed:local`
-tự đặt `DIRECTUS_URL=localhost:8055`, `SITE_URL=localhost:3000`,
+Chạy orchestrator `run-local-seed.mjs`: nếu DB trống nó tự lo **đúng thứ tự** —
+schema → tạo `languages` (vi-VN/en-US) → homepage → cấp quyền **Public** →
+team/blog/team-members → webhook revalidate **trỏ `localhost:3100`**. `cms:seed:local`
+tự đặt `DIRECTUS_URL=localhost:8155`, `SITE_URL=localhost:3100`,
 `REVALIDATE_SECRET=local-revalidate-secret` — bạn chỉ cần cung cấp email/mật khẩu.
+Idempotent: chạy lại trên DB đã seed thì bỏ qua việc nặng. (Bước 2-3 snapshot/apply
+schema vẫn để riêng cho khi prod đổi schema; run-local-seed cũng tự gọi nếu có `SRC_*`.)
 
 ### Bước 5 — Chạy website local
 ```powershell
 npm run dev
 ```
 Mở:
-- `http://localhost:3000/vi` — trang chủ
-- `http://localhost:3000/vi/team` — lưới đội ngũ
-- `http://localhost:3000/vi/blog` — blog
+- `http://localhost:3100/vi` — trang chủ
+- `http://localhost:3100/vi/team` — lưới đội ngũ
+- `http://localhost:3100/vi/blog` — blog
 
 Tất cả đọc từ **Directus local**. Sửa nội dung trong Studio local
-(`localhost:8055`) → tải lại trang để thấy thay đổi.
+(`localhost:8155`) → tải lại trang để thấy thay đổi.
 
 #### Vì sao có trang cập nhật ngay, có trang phải đợi?
 - **Trang chủ** đọc mới mỗi lần (force-dynamic) → sửa xong F5 là thấy ngay.
 - **Team / Blog** được **cache** (tối ưu tốc độ). Chỉ cập nhật khi Directus gửi
   tín hiệu "revalidate" qua **webhook** → `/api/revalidate`. Đó là lý do webhook
-  local PHẢI trỏ `localhost:3000` (việc seed ở Bước 4 đã lo).
+  local PHẢI trỏ `localhost:3100` (việc seed ở Bước 4 đã lo).
 - Nếu sửa Team/Blog mà không thấy đổi: kiểm tra webhook local có trỏ đúng
   localhost không (Studio → Settings → Flows → mở operation → URL phải là
-  `http://localhost:3000/api/revalidate?...`). Hoặc restart `npm run dev` để xoá
+  `http://localhost:3100/api/revalidate?...`). Hoặc restart `npm run dev` để xoá
   cache trong bộ nhớ. `secret` của webhook phải khớp `REVALIDATE_SECRET` trong
   `.env.local`, nếu lệch → trả 401, không cập nhật.
 - Webhook chạy khi item **cha** thay đổi. Sửa trong **Studio** và bấm **Save**

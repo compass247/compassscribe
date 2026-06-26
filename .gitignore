@@ -38,9 +38,12 @@ backend/cms/snapshot.json
 
 # Directus homepage content backup (pulled from an instance; not committed)
 backend/cms/homepage-prod.json
+backend/cms/homepage-prod-backup-rebrand.json
 
-# Claude Code tooling config (per-developer; not project code)
-.claude/
+# Claude Code tooling config (per-developer; not project code)...
+.claude/*
+# ...except shared project skills, which DO belong in the repo.
+!.claude/skills/
 
 # Terraform
 infra/.terraform/
