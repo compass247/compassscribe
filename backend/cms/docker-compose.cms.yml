@@ -6,10 +6,20 @@
 #
 # Start:  docker compose -f backend/cms/docker-compose.cms.yml up -d
 # Stop:   docker compose -f backend/cms/docker-compose.cms.yml down
-# Admin:  http://localhost:8055   (login: admin@compassscribe.com / see .env)
+# Admin:  http://localhost:8155   (login: admin@compassscribe.com / see .env)
 # Reset:  docker compose -f backend/cms/docker-compose.cms.yml down -v   (wipes DB)
 #
+# PORTS: Compassscribe uses a dedicated 81xx/31xx range so it can run AT THE
+# SAME TIME as the legacy AgeWell project (which keeps 80xx/30xx). Override
+# CMS_HOST_PORT in backend/cms/.env if you need a different host port.
+#
 # Copy backend/cms/.env.example -> backend/cms/.env before first run.
+
+# Explicit project name so Docker NEVER conflates this with the legacy AgeWell
+# stack (which uses its own project). Without this, both projects would default
+# to the "cms" name and recreate each other's containers/volumes.
+name: compassscribe-cms
+
 services:
   cms-db:
     # Pin the major version — Directus runs schema migrations on boot, so a
@@ -38,7 +48,9 @@ services:
     image: directus/directus:11.3.5
     container_name: cmas-cms
     ports:
-      - "8055:8055"
+      # host:container — host side defaults to 8155 (Compassscribe range) so it
+      # never collides with AgeWell's 8055. Container stays 8055 internally.
+      - "${CMS_HOST_PORT:-8155}:8055"
     depends_on:
       cms-db:
         condition: service_healthy
@@ -60,9 +72,9 @@ services:
       ADMIN_PASSWORD: ${ADMIN_PASSWORD:-changeme-locally}
 
       # --- public URL + CORS for the Next.js frontend ---
-      PUBLIC_URL: ${PUBLIC_URL:-http://localhost:8055}
+      PUBLIC_URL: ${PUBLIC_URL:-http://localhost:8155}
       CORS_ENABLED: "true"
-      CORS_ORIGIN: ${CORS_ORIGIN:-http://localhost:3000}
+      CORS_ORIGIN: ${CORS_ORIGIN:-http://localhost:3100}
 
       # --- storage: local disk in dev; S3 in prod (STORAGE_LOCATIONS=s3) ---
       STORAGE_LOCATIONS: local
