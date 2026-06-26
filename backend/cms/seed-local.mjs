@@ -1,4 +1,13 @@
 /* ============================================================
+   DEPRECATED — use backend/cms/run-local-seed.mjs (or `npm run cms:seed:local`,
+   or the /run-local skill) instead.
+
+   This older helper seeds ONLY team-page/blog/team-members and uses the stale
+   :8055/:3000 ports; it does NOT seed the homepage, does NOT create the
+   `languages` rows (so homepage seeding fails with INVALID_FOREIGN_KEY), and
+   targets the wrong ports now that Compassscribe runs on :8155/:3100. Kept only
+   to avoid breaking any direct references. run-local-seed.mjs supersedes it.
+   ------------------------------------------------------------
    Seed the LOCAL Directus with sample content for all three areas
    (team page, blog, team members) — with the right LOCAL defaults so the
    revalidate webhooks point at the local Next.js dev server, NOT production.
