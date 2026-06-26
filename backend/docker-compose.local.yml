@@ -1,19 +1,28 @@
 # Local dev backend stack — DynamoDB Local + a small admin UI.
 # Start:  docker compose -f backend/docker-compose.local.yml up -d
 # Stop:   docker compose -f backend/docker-compose.local.yml down
+#
+# PORTS: host side uses the Compassscribe 81xx range (8100/8101) so this can run
+# alongside the legacy AgeWell stack (which keeps 8000/8001). Override with
+# DDB_HOST_PORT / DDB_ADMIN_HOST_PORT if needed.
+
+# Explicit project name — isolates this stack from AgeWell's (which defaults to
+# the "backend" project name and would otherwise recreate these containers).
+name: compassscribe-backend
+
 services:
   dynamodb-local:
     image: amazon/dynamodb-local:latest
     container_name: cmas-dynamodb-local
     command: "-jar DynamoDBLocal.jar -sharedDb -inMemory"
     ports:
-      - "8000:8000"
+      - "${DDB_HOST_PORT:-8100}:8000"
 
   dynamodb-admin:
     image: aaronshaf/dynamodb-admin:latest
     container_name: cmas-dynamodb-admin
     ports:
-      - "8001:8001"
+      - "${DDB_ADMIN_HOST_PORT:-8101}:8001"
     environment:
       DYNAMO_ENDPOINT: "http://dynamodb-local:8000"
       AWS_REGION: "us-east-1"
