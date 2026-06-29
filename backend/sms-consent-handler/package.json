@@ -1,0 +1,18 @@
+{
+  "name": "cmas-sms-consent-handler",
+  "version": "1.0.0",
+  "description": "Compassscribe — SMS consent handler (Lambda) for Twilio toll-free verification",
+  "type": "module",
+  "main": "index.mjs",
+  "scripts": {
+    "db:init": "cross-env DYNAMODB_ENDPOINT=http://localhost:8100 SMS_CONSENT_TABLE=cmas-sms-consent node create-local-table.mjs",
+    "dev": "cross-env PORT=8788 DYNAMODB_ENDPOINT=http://localhost:8100 SMS_CONSENT_TABLE=cmas-sms-consent ALLOWED_ORIGIN=* AWS_ACCESS_KEY_ID=local AWS_SECRET_ACCESS_KEY=local AWS_REGION=us-east-1 node local-server.mjs"
+  },
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.726.0",
+    "@aws-sdk/lib-dynamodb": "^3.726.0"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3"
+  }
+}

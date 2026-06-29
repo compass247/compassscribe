@@ -12,8 +12,9 @@ export const config = {
   matcher: [
     "/",
     "/(vi|en)/:path*",
-    // Exclude api, healthz, Next internals, and static assets so the ALB
-    // health check hits /healthz directly (no locale redirect).
-    "/((?!api|healthz|_next|_vercel|assets|.*\\..*).*)",
+    // Exclude api, healthz, Next internals, static assets, and the locale-free
+    // legal/compliance pages (Twilio) so they are served at their exact paths
+    // (/sms-consent, /sms-terms, /privacy-policy, /terms) WITHOUT a /vi redirect.
+    "/((?!api|healthz|sms-consent|sms-terms|privacy-policy|terms|_next|_vercel|assets|.*\\..*).*)",
   ],
 };
