@@ -41,5 +41,13 @@ export default async function sitemap() {
     });
   }
 
+  // Locale-free legal / compliance pages (Twilio). No hreflang — English-only.
+  for (const path of ["/sms-consent", "/sms-terms", "/privacy-policy", "/terms"]) {
+    entries.push({
+      url: `${SITE_URL}${path}`,
+      lastModified: new Date(),
+    });
+  }
+
   return entries;
 }

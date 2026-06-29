@@ -1,0 +1,9 @@
+{
+  "_comment": "Single source of truth for the SMS consent DynamoDB table. BOTH local dev (create-local-table.mjs) AND production (infra/backend.tf) read this file, so they never drift. Stores Twilio toll-free opt-in consent records for audit (error 30513).",
+  "tableName": "cmas-sms-consent",
+  "hashKey": "consentId",
+  "attributes": [
+    { "name": "consentId", "type": "S" }
+  ],
+  "globalSecondaryIndexes": []
+}

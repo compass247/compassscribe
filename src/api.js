@@ -6,8 +6,8 @@
    ============================================================ */
 const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "";
 
-export async function submitLead(payload) {
-  const res = await fetch(`${API_BASE}/api/lead`, {
+async function postJson(path, payload) {
+  const res = await fetch(`${API_BASE}${path}`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(payload),
@@ -23,4 +23,13 @@ export async function submitLead(payload) {
     throw new Error(detail || `Request failed (${res.status})`);
   }
   return res.json();
+}
+
+export function submitLead(payload) {
+  return postJson("/api/lead", payload);
+}
+
+// Twilio SMS opt-in consent — persisted to a separate audit table.
+export function submitSmsConsent(payload) {
+  return postJson("/api/sms-consent", payload);
 }
