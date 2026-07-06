@@ -129,6 +129,12 @@ variable "enable_tunnel_test_hostnames" {
   default     = true
 }
 
+variable "route_via_tunnel" {
+  description = "CUTOVER SWITCH. false = apex/www/cms DNS points at the ALB (DNS-only). true = they point at the Cloudflare Tunnel (proxied). Rollback = flip back to false. REQUIRES Cloudflare SSL/TLS mode Full (strict) when true."
+  type        = bool
+  default     = false
+}
+
 variable "cms_admin_email" {
   description = "Bootstrap Directus admin email (first boot only; change password after)."
   type        = string
