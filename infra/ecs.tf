@@ -112,6 +112,13 @@ resource "aws_ecs_service" "web" {
     container_port   = 3000
   }
 
+  # Register the task's private IP in Cloud Map so cloudflared can reach it
+  # at web.cmas.local (stable across deploys). Additive: runs alongside the
+  # ALB target group during the parallel-run phase.
+  service_registries {
+    registry_arn = aws_service_discovery_service.web.arn
+  }
+
   depends_on = [aws_lb_listener.https]
 
   # CI deploys by pushing a new image and forcing a new deployment;

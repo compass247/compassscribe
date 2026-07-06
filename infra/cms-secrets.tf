@@ -59,5 +59,8 @@ resource "aws_secretsmanager_secret_version" "cms" {
     SECRET            = random_password.directus_secret.result
     ADMIN_PASSWORD    = random_password.cms_admin.result
     REVALIDATE_SECRET = random_password.revalidate.result
+    # cloudflared connector token — authenticates the tunnel to the edge.
+    # Injected into the cloudflared container (cms-compute.tf).
+    TUNNEL_TOKEN = cloudflare_zero_trust_tunnel_cloudflared.web.tunnel_token
   })
 }

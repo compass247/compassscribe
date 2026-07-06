@@ -57,6 +57,17 @@ resource "aws_security_group" "ecs" {
     security_groups = [aws_security_group.alb.id]
   }
 
+  # From cloudflared (runs on the CMS host) — the tunnel forwards website
+  # traffic to the web task on 3000, replacing the ALB path. Additive:
+  # kept alongside the ALB ingress during the parallel-run phase.
+  ingress {
+    description     = "From cloudflared on CMS host"
+    from_port       = 3000
+    to_port         = 3000
+    protocol        = "tcp"
+    security_groups = [aws_security_group.cms_host.id]
+  }
+
   egress {
     from_port   = 0
     to_port     = 0

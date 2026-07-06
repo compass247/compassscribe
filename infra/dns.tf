@@ -37,3 +37,30 @@ resource "cloudflare_record" "cms" {
   ttl             = 300
   allow_overwrite = true
 }
+
+/* ------------------------------------------------------------
+   TEMPORARY tunnel-test records — route through the Cloudflare
+   Tunnel (proxied) so we can verify it works WHILE the real
+   apex/www/cms still point at the ALB. Remove these (and set
+   enable_tunnel_test_hostnames = false) at cutover.
+   Must be proxied (orange) — cfargotunnel.com only works proxied.
+   ------------------------------------------------------------ */
+resource "cloudflare_record" "tunnel_test_web" {
+  count           = var.enable_tunnel_test_hostnames ? 1 : 0
+  zone_id         = var.cloudflare_zone_id
+  name            = "tunnel-test.${var.domain}"
+  type            = "CNAME"
+  content         = cloudflare_zero_trust_tunnel_cloudflared.web.cname
+  proxied         = true
+  allow_overwrite = true
+}
+
+resource "cloudflare_record" "tunnel_test_cms" {
+  count           = var.enable_tunnel_test_hostnames ? 1 : 0
+  zone_id         = var.cloudflare_zone_id
+  name            = "cms-test.${var.domain}"
+  type            = "CNAME"
+  content         = cloudflare_zero_trust_tunnel_cloudflared.web.cname
+  proxied         = true
+  allow_overwrite = true
+}
