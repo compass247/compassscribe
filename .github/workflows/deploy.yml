@@ -40,6 +40,9 @@ jobs:
       TF_VAR_cloudflare_api_token: ${{ secrets.CLOUDFLARE_API_TOKEN }}
       TF_VAR_cloudflare_zone_id: ${{ vars.CLOUDFLARE_ZONE_ID }}
       TF_VAR_cloudflare_account_id: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+      # Cutover switch: apex/www/cms -> tunnel (proxied) when true, else ALB.
+      # Toggle via the repo Variable ROUTE_VIA_TUNNEL; rollback = set false + re-run.
+      TF_VAR_route_via_tunnel: ${{ vars.ROUTE_VIA_TUNNEL || 'false' }}
       TF_VAR_aws_region: ${{ vars.AWS_REGION }}
     steps:
       - uses: actions/checkout@v4
