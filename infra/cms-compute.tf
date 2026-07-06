@@ -391,14 +391,11 @@ resource "aws_ecs_service" "cms" {
   deployment_minimum_healthy_percent = 0
   deployment_maximum_percent         = 100
 
-  load_balancer {
-    target_group_arn = aws_lb_target_group.cms.arn
-    container_name   = "directus"
-    container_port   = 8055
-  }
+  # No load_balancer block: post-cutover, cloudflared (a sibling container
+  # on this host) reaches Directus directly over the bridge link, so the
+  # service no longer registers with an ALB target group.
 
   depends_on = [
-    aws_lb_listener.https,
     aws_ecs_cluster_capacity_providers.main,
   ]
 }

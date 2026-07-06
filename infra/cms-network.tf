@@ -13,14 +13,9 @@ resource "aws_security_group" "cms_host" {
   description = "ECS EC2 host for Directus - Directus port from ALB only"
   vpc_id      = data.aws_vpc.default.id
 
-  # Directus admin/API — only from the shared ALB.
-  ingress {
-    description     = "Directus from ALB"
-    from_port       = 8055
-    to_port         = 8055
-    protocol        = "tcp"
-    security_groups = [aws_security_group.alb.id]
-  }
+  # No Directus 8055 ingress: post-cutover, cloudflared reaches Directus
+  # over the host's internal bridge link (same task), not across the SG.
+  # The public ALB that used to hit 8055 was removed.
 
   # Optional break-glass SSH (disabled unless cms_ssh_cidr is set).
   # Prefer SSM Session Manager (no inbound port) for normal access.
