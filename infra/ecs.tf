@@ -106,20 +106,12 @@ resource "aws_ecs_service" "web" {
     assign_public_ip = true # tasks run in public subnets to reach ECR without NAT
   }
 
-  load_balancer {
-    target_group_arn = aws_lb_target_group.web.arn
-    container_name   = "web"
-    container_port   = 3000
-  }
-
   # Register the task's private IP in Cloud Map so cloudflared can reach it
-  # at web.cmas.local (stable across deploys). Additive: runs alongside the
-  # ALB target group during the parallel-run phase.
+  # at web.cmas.local (stable across deploys). This is the ONLY ingress path
+  # now — the ALB target group was removed after the tunnel cutover.
   service_registries {
     registry_arn = aws_service_discovery_service.web.arn
   }
-
-  depends_on = [aws_lb_listener.https]
 
   # CI deploys by pushing a new image and forcing a new deployment;
   # ignore image drift in the task definition so plans stay clean.

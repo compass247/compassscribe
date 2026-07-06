@@ -1,8 +1,3 @@
-output "alb_dns_name" {
-  description = "ALB DNS name (apex/www CNAME target)."
-  value       = aws_lb.web.dns_name
-}
-
 output "ecr_repository_url" {
   description = "ECR repo URL for the web image."
   value       = aws_ecr_repository.web.repository_url
