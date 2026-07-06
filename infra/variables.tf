@@ -123,6 +123,12 @@ variable "cloudflared_image" {
   default     = "cloudflare/cloudflared:2025.6.1"
 }
 
+variable "enable_tunnel_test_hostnames" {
+  description = "Publish temporary tunnel-test.<domain> + cms-test.<domain> that route through the tunnel, for verifying it works in parallel with the ALB BEFORE cutting over the real domains. Set false (and remove) once cutover is done."
+  type        = bool
+  default     = true
+}
+
 variable "cms_admin_email" {
   description = "Bootstrap Directus admin email (first boot only; change password after)."
   type        = string

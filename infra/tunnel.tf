@@ -64,6 +64,25 @@ resource "cloudflare_zero_trust_tunnel_cloudflared_config" "web" {
       service  = local.web_tunnel_service
     }
 
+    # TEMPORARY test hostnames — let us curl the tunnel path (web + CMS)
+    # while the real domains still point at the ALB. Removed at cutover
+    # (set enable_tunnel_test_hostnames = false). See dns.tf for the
+    # matching DNS records.
+    dynamic "ingress_rule" {
+      for_each = var.enable_tunnel_test_hostnames ? [1] : []
+      content {
+        hostname = "tunnel-test.${var.domain}"
+        service  = local.web_tunnel_service
+      }
+    }
+    dynamic "ingress_rule" {
+      for_each = var.enable_tunnel_test_hostnames ? [1] : []
+      content {
+        hostname = "cms-test.${var.domain}"
+        service  = "http://directus:8055"
+      }
+    }
+
     # Required catch-all.
     ingress_rule {
       service = "http_status:404"
