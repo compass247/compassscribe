@@ -33,6 +33,12 @@ variable "cloudflare_api_token" {
   sensitive   = true
 }
 
+variable "cloudflare_account_id" {
+  description = "Cloudflare account ID (Zero Trust > Access > Tunnels lives under the account, not the zone). Needed to create the Cloudflare Tunnel that replaces the ALB. Find it on the Cloudflare dashboard right sidebar."
+  type        = string
+  default     = ""
+}
+
 variable "cloudflare_proxied" {
   description = "Whether Cloudflare proxies the apex/www records (orange cloud). Keep false (DNS-only) so ACM on the ALB terminates TLS cleanly."
   type        = bool
@@ -109,6 +115,12 @@ variable "postgres_image" {
   description = "Pinned Postgres image for the CMS database container."
   type        = string
   default     = "postgres:16-alpine"
+}
+
+variable "cloudflared_image" {
+  description = "Pinned cloudflared image for the Cloudflare Tunnel connector (NEVER :latest)."
+  type        = string
+  default     = "cloudflare/cloudflared:2025.6.1"
 }
 
 variable "cms_admin_email" {

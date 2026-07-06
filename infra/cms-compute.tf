@@ -346,6 +346,31 @@ resource "aws_ecs_task_definition" "cms" {
           "awslogs-stream-prefix" = "directus"
         }
       }
+    },
+    {
+      # cloudflared — the Cloudflare Tunnel connector. Replaces the ALB as
+      # the public ingress: it dials OUT to the Cloudflare edge (no inbound
+      # port, no public IPv4) and forwards by hostname per the tunnel config
+      # (tunnel.tf). Reaches Directus over the bridge link and the web
+      # service over Cloud Map private DNS.
+      name      = "cloudflared"
+      image     = var.cloudflared_image
+      essential = false # tunnel down must NOT kill Directus/Postgres
+      cpu       = 128
+      memory    = 128
+      command   = ["tunnel", "--no-autoupdate", "run"]
+      links     = ["directus"]
+      secrets = [
+        { name = "TUNNEL_TOKEN", valueFrom = "${aws_secretsmanager_secret.cms.arn}:TUNNEL_TOKEN::" },
+      ]
+      logConfiguration = {
+        logDriver = "awslogs"
+        options = {
+          "awslogs-group"         = aws_cloudwatch_log_group.cms.name
+          "awslogs-region"        = var.aws_region
+          "awslogs-stream-prefix" = "cloudflared"
+        }
+      }
     }
   ])
 }
