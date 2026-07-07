@@ -15,9 +15,11 @@ data "aws_subnets" "default" {
 
 # Security group for the ECS tasks — only cloudflared (on the CMS host) may
 # reach the Next.js port. The public ALB was removed after the tunnel cutover.
+# NOTE: `description` is intentionally left at its original value — changing
+# it forces SG replacement, which fails while the web task is attached.
 resource "aws_security_group" "ecs" {
   name        = "${var.project}-ecs"
-  description = "ECS task ingress from cloudflared only"
+  description = "ECS task ingress from ALB only"
   vpc_id      = data.aws_vpc.default.id
 
   # From cloudflared (runs on the CMS host) — the tunnel forwards website
