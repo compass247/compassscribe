@@ -5,9 +5,9 @@ Guidance for Claude Code when working in this repo.
 ## What this is
 
 Marketing website for **Compassscribe** (bilingual VI/EN healthcare for Vietnamese
-seniors on Medicare). Vite + React 18 static SPA → nginx on ECS Fargate; serverless
-lead form (API Gateway + Lambda + DynamoDB + SES); Terraform infra; GitHub Actions CI/CD;
-Cloudflare DNS.
+seniors on Medicare). Next.js on ECS Fargate, fronted by a **Cloudflare Tunnel**
+(no public ALB — see below); serverless lead form (API Gateway + Lambda + DynamoDB
++ SES); Terraform infra; GitHub Actions CI/CD; Cloudflare DNS.
 
 ## Commands
 
@@ -51,5 +51,12 @@ npm run preview  # serve built dist/
   components, ESM imports, `Reveal`/`SectionHead` shared helpers, `Icon` from
   `components/icons.jsx`.
 - Keep `npm run lint` and `npm run build` green — CI enforces both.
-- DNS records (apex/www/api) are Cloudflare CNAMEs to the ALB / API Gateway, DNS-only by
-  default. Don't switch to proxied without setting Cloudflare SSL to Full (strict).
+- **Ingress is a Cloudflare Tunnel, not an ALB** (`infra/tunnel.tf`). `cloudflared`
+  runs as a sidecar on the CMS EC2 host and routes by hostname: apex/www → web
+  Fargate task via Cloud Map (`web.cmas.local`, `infra/service-discovery.tf`),
+  `cms.*` → Directus. apex/www/cms are **proxied** Cloudflare CNAMEs to
+  `<tunnel-id>.cfargotunnel.com`; Cloudflare SSL/TLS mode must stay **Full (strict)**.
+- `api.*` still points at API Gateway (its own ACM cert `aws_acm_certificate.api`;
+  the old ALB web cert `acm.tf` is gone). DNS-only for api.
+- The public ALB was retired to cut cost (~$16/mo: ELB + 6 public IPv4). Rollback
+  would mean restoring `alb.tf`/`acm.tf` from git history and re-pointing DNS.
