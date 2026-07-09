@@ -12,9 +12,14 @@ locals {
 resource "aws_ecs_cluster" "main" {
   name = var.project
 
+  # Container Insights disabled to cut the ~$5/mo CloudWatch metric charge
+  # (CW:MetricMonitorUsage). This is performance monitoring only — CloudTrail
+  # audit logs and the ECS application log groups are untouched, and this
+  # project handles no PHI (HIPAA compliance lives in the separate AgeWell
+  # account). Re-enable by flipping to "enabled" if perf dashboards are needed.
   setting {
     name  = "containerInsights"
-    value = "enabled"
+    value = "disabled"
   }
 }
 
